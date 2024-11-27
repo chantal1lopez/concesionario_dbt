@@ -1,0 +1,195 @@
+version: 2
+
+sources:
+  - name: CONCESIONARIO
+    description: ""
+    database: ALUMNO24_DEV_BRONZE_DB
+    schema: CONCESIONARIO
+    tables:
+      - name: branches
+        description: ""
+        columns:
+          - name: branch_id
+            data_type: varchar
+            description: ""
+          - name: branch_name
+            data_type: varchar
+            description: ""
+          - name: city
+            data_type: varchar
+            description: ""
+          - name: state
+            data_type: varchar
+            description: ""
+          - name: opened_date
+            data_type: date
+            description: ""
+
+      - name: campaigns
+        description: ""
+        columns:
+          - name: campaign_id
+            data_type: varchar
+            description: ""
+          - name: name
+            data_type: varchar
+            description: ""
+          - name: start_date
+            data_type: date
+            description: ""
+          - name: end_date
+            data_type: date
+            description: ""
+          - name: budget
+            data_type: number
+            description: ""
+          - name: channel
+            data_type: varchar
+            description: ""
+
+      - name: customers
+        description: ""
+        columns:
+          - name: customer_id
+            data_type: varchar
+            description: ""
+          - name: name
+            data_type: varchar
+            description: ""
+          - name: email
+            data_type: varchar
+            description: ""
+          - name: phone
+            data_type: varchar
+            description: ""
+          - name: city
+            data_type: varchar
+            description: ""
+          - name: segment
+            data_type: varchar
+            description: ""
+          - name: state
+            data_type: varchar
+            description: ""
+
+      - name: promotions
+        description: ""
+        columns:
+          - name: promotion_id
+            data_type: varchar
+            description: ""
+          - name: name
+            data_type: varchar
+            description: ""
+          - name: start_date
+            data_type: date
+            description: ""
+          - name: end_date
+            data_type: date
+            description: ""
+          - name: discount_type
+            data_type: varchar
+            description: ""
+          - name: discount_value
+            data_type: number
+            description: ""
+          - name: campaign_id
+            data_type: varchar
+            description: ""
+
+      - name: sales
+        description: ""
+        columns:
+          - name: sale_id
+            data_type: varchar
+            description: ""
+          - name: customer_id
+            data_type: varchar
+            description: ""
+          - name: vehicle_id
+            data_type: varchar
+            description: ""
+          - name: sale_date
+            data_type: date
+            description: ""
+          - name: sale_price
+            data_type: number
+            description: ""
+          - name: financing_type
+            data_type: varchar
+            description: ""
+          - name: salesperson_id
+            data_type: varchar
+            description: ""
+          - name: branch_id
+            data_type: varchar
+            description: ""
+          - name: campaign_id
+            data_type: varchar
+            description: ""
+          - name: promotion_id
+            data_type: varchar
+            description: ""
+
+      - name: salespeople
+        description: ""
+        columns:
+          - name: salesperson_id
+            data_type: varchar
+            description: ""
+          - name: name
+            data_type: varchar
+            description: ""
+          - name: hire_date
+            data_type: date
+            description: ""
+          - name: branch_id
+            data_type: number
+            description: ""
+
+      - name: services
+        description: ""
+        columns:
+          - name: service_id
+            data_type: varchar
+            description: ""
+          - name: vehicle_id
+            data_type: varchar
+            description: ""
+          - name: service_date
+            data_type: date
+            description: ""
+          - name: service_type
+            data_type: varchar
+            description: ""
+          - name: cost
+            data_type: number
+            description: ""
+          - name: mechanic_name
+            data_type: varchar
+            description: ""
+
+      - name: vehicles
+        description: ""
+        columns:
+          - name: vehicle_id
+            data_type: varchar
+            description: ""
+          - name: model
+            data_type: varchar
+            description: ""
+          - name: brand
+            data_type: varchar
+            description: ""
+          - name: type
+            data_type: varchar
+            description: ""
+          - name: year
+            data_type: number
+            description: ""
+          - name: price
+            data_type: number
+            description: ""
+          - name: inventory_status
+            data_type: varchar
+            description: ""
