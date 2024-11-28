@@ -370,3 +370,88 @@ models:
       - name: brand_name
         data_type: varchar
         description: ""
+
+  - name: base_concesionario__campaigns
+    description: ""
+    columns:
+      - name: campaign_id
+        data_type: varchar
+        description: ""
+
+      - name: name
+        data_type: varchar
+        description: ""
+
+      - name: start_date
+        data_type: date
+        description: ""
+
+      - name: end_date
+        data_type: date
+        description: ""
+
+      - name: budget_usd
+        data_type: float
+        description: ""
+
+      - name: channel_name
+        data_type: varchar
+        description: ""
+
+      - name: channel_id
+        data_type: varchar
+        description: ""
+
+      - name: is_active
+        data_type: boolean
+        description: ""
+
+      - name: last_updated_utc
+        data_type: timestamp_ntz
+        description: ""
+
+  - name: stg_concesionario__campaigns
+    description: ""
+    columns:
+      - name: campaign_id
+        data_type: varchar
+        description: ""
+
+      - name: name
+        data_type: varchar
+        description: ""
+
+      - name: start_date
+        data_type: date
+        description: ""
+
+      - name: end_date
+        data_type: date
+        description: ""
+
+      - name: budget_usd
+        data_type: float
+        description: ""
+
+      - name: channel_id
+        data_type: varchar
+        description: ""
+
+      - name: is_active
+        data_type: boolean
+        description: ""
+
+      - name: last_updated_utc
+        data_type: timestamp_ntz
+        description: ""
+
+  - name: stg_concesionario__campaign_channels
+    description: ""
+    columns:
+      - name: channel_id
+        data_type: varchar
+        description: ""
+
+      - name: channel_name
+        data_type: varchar
+        description: ""
