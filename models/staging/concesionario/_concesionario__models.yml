@@ -455,3 +455,92 @@ models:
       - name: channel_name
         data_type: varchar
         description: ""
+
+  - name: stg_concesionario__salespeople
+    description: ""
+    columns:
+      - name: salesperson_id
+        data_type: varchar
+        description: ""
+
+      - name: name
+        data_type: varchar
+        description: ""
+
+      - name: hire_date
+        data_type: date
+        description: ""
+
+      - name: branch_id
+        data_type: varchar
+        description: ""
+
+      - name: is_active
+        data_type: boolean
+        description: ""
+
+      - name: last_updated_utc
+        data_type: timestamp_ntz
+        description: ""
+
+  - name: stg_concesionario__branches
+    description: ""
+    columns:
+      - name: branch_id
+        data_type: varchar
+        description: ""
+
+      - name: branch_name
+        data_type: varchar
+        description: ""
+
+      - name: address_id
+        data_type: varchar
+        description: ""
+
+      - name: opened_date
+        data_type: date
+        description: ""
+
+      - name: is_active
+        data_type: boolean
+        description: ""
+
+      - name: last_updated_utc
+        data_type: timestamp_ntz
+        description: ""
+
+  - name: base_concesionario__branches
+    description: ""
+    columns:
+      - name: branch_id
+        data_type: varchar
+        description: ""
+
+      - name: branch_name
+        data_type: varchar
+        description: ""
+
+      - name: city
+        data_type: varchar
+        description: ""
+
+      - name: state
+        data_type: varchar
+        description: ""
+
+      - name: address_id
+        data_type: varchar
+        description: ""
+
+      - name: opened_date
+        data_type: date
+        description: ""
+
+      - name: is_active
+        data_type: boolean
+        description: ""
+
+      - name: last_updated_utc
+        data_type: timestamp_ntz
+        description: ""
