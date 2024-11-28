@@ -1,0 +1,249 @@
+version: 2
+
+models:
+  - name: base_concesionario__services
+    description: ""
+    columns:
+      - name: service_id
+        data_type: varchar
+        description: ""
+
+      - name: vehicle_id
+        data_type: varchar
+        description: ""
+
+      - name: service_date
+        data_type: date
+        description: ""
+
+      - name: service_type
+        data_type: varchar
+        description: ""
+
+      - name: cost
+        data_type: float
+        description: ""
+
+      - name: mechanic_name
+        data_type: varchar
+        description: ""
+
+      - name: is_active
+        data_type: boolean
+        description: ""
+
+      - name: last_updated_utc
+        data_type: timestamp_ntz
+        description: ""
+
+  - name: stg_concesionario__services
+    description: ""
+    columns:
+      - name: service_id
+        data_type: varchar
+        description: ""
+
+      - name: vehicle_id
+        data_type: varchar
+        description: ""
+
+      - name: service_date
+        data_type: date
+        description: ""
+
+      - name: service_type_id
+        data_type: varchar
+        description: ""
+
+      - name: cost_usd
+        data_type: float
+        description: ""
+
+      - name: mechanic_id
+        data_type: varchar
+        description: ""
+
+      - name: is_active
+        data_type: boolean
+        description: ""
+
+      - name: last_updated_utc
+        data_type: timestamp_ntz
+        description: ""
+  
+  - name: stg_concesionario__service_types
+    description: ""
+    columns:
+      - name: service_type_id
+        data_type: varchar
+        description: ""
+
+      - name: service_type
+        data_type: varchar
+        description: ""
+
+  - name: stg_concesionario__mechanics
+    description: ""
+    columns:
+      - name: mechanic_id
+        data_type: varchar
+        description: ""
+
+      - name: mechanic_name
+        data_type: varchar
+        description: ""
+
+  - name: base_concesionario__customers
+    description: ""
+    columns:
+      - name: customer_id
+        data_type: varchar
+        description: ""
+
+      - name: name
+        data_type: varchar
+        description: ""
+
+      - name: email
+        data_type: varchar
+        description: ""
+
+      - name: phone
+        data_type: varchar
+        description: ""
+
+      - name: city
+        data_type: varchar
+        description: ""
+
+      - name: state
+        data_type: varchar
+        description: ""
+
+      - name: address_id
+        data_type: varchar
+        description: ""
+
+      - name: segment_id
+        data_type: varchar
+        description: ""
+
+      - name: segment
+        data_type: varchar
+        description: ""
+
+      - name: is_active
+        data_type: boolean
+        description: ""
+
+      - name: last_updated_utc
+        data_type: timestamp_ntz
+        description: ""
+
+  - name: base_concesionario__customers
+    description: ""
+    columns:
+      - name: customer_id
+        data_type: varchar
+        description: ""
+
+      - name: name
+        data_type: varchar
+        description: ""
+
+      - name: email
+        data_type: varchar
+        description: ""
+
+      - name: phone
+        data_type: varchar
+        description: ""
+
+      - name: city
+        data_type: varchar
+        description: ""
+
+      - name: state
+        data_type: varchar
+        description: ""
+
+      - name: address_id
+        data_type: varchar
+        description: ""
+
+      - name: segment_id
+        data_type: varchar
+        description: ""
+
+      - name: segment
+        data_type: varchar
+        description: ""
+
+      - name: is_active
+        data_type: boolean
+        description: ""
+
+      - name: last_updated_utc
+        data_type: timestamp_ntz
+        description: ""
+
+  - name: stg_concesionario__customers
+    description: ""
+    columns:
+      - name: customer_id
+        data_type: varchar
+        description: ""
+
+      - name: name
+        data_type: varchar
+        description: ""
+
+      - name: email
+        data_type: varchar
+        description: ""
+
+      - name: phone
+        data_type: varchar
+        description: ""
+
+      - name: address_id
+        data_type: varchar
+        description: ""
+
+      - name: segment_id
+        data_type: varchar
+        description: ""
+
+      - name: is_active
+        data_type: boolean
+        description: ""
+
+      - name: last_updated_utc
+        data_type: timestamp_ntz
+        description: ""
+
+  - name: stg_concesionario__addresses
+    description: ""
+    columns:
+      - name: address_id
+        data_type: varchar
+        description: ""
+
+      - name: city
+        data_type: varchar
+        description: ""
+
+      - name: state
+        data_type: varchar
+        description: ""
+
+  - name: stg_concesionario__customer_segments
+    description: ""
+    columns:
+      - name: segment_id
+        data_type: varchar
+        description: ""
+
+      - name: segment
+        data_type: varchar
+        description: ""
