@@ -1,10 +1,10 @@
 version: 2
 
 sources:
-  - name: CONCESIONARIO
+  - name: concesionario
     description: ""
-    database: ALUMNO24_DEV_BRONZE_DB
-    schema: CONCESIONARIO
+    database: alumno24_dev_bronze_db
+    schema: concesionario
     tables:
       - name: branches
         description: ""
@@ -22,7 +22,13 @@ sources:
             data_type: varchar
             description: ""
           - name: opened_date
-            data_type: date
+            data_type: varchar
+            description: ""
+          - name: is_active
+            data_type: boolean
+            description: ""
+          - name: last_updated
+            data_type: timestamp_ntz
             description: ""
 
       - name: campaigns
@@ -35,16 +41,22 @@ sources:
             data_type: varchar
             description: ""
           - name: start_date
-            data_type: date
+            data_type: varchar
             description: ""
           - name: end_date
-            data_type: date
+            data_type: varchar
             description: ""
           - name: budget
-            data_type: number
+            data_type: varchar
             description: ""
           - name: channel
             data_type: varchar
+            description: ""
+          - name: is_active
+            data_type: boolean
+            description: ""
+          - name: last_updated
+            data_type: timestamp_ntz
             description: ""
 
       - name: customers
@@ -71,6 +83,12 @@ sources:
           - name: state
             data_type: varchar
             description: ""
+          - name: is_active
+            data_type: boolean
+            description: ""
+          - name: last_updated
+            data_type: timestamp_ntz
+            description: ""
 
       - name: promotions
         description: ""
@@ -82,19 +100,25 @@ sources:
             data_type: varchar
             description: ""
           - name: start_date
-            data_type: date
+            data_type: varchar
             description: ""
           - name: end_date
-            data_type: date
+            data_type: varchar
             description: ""
           - name: discount_type
             data_type: varchar
             description: ""
           - name: discount_value
-            data_type: number
+            data_type: varchar
             description: ""
           - name: campaign_id
             data_type: varchar
+            description: ""
+          - name: is_active
+            data_type: boolean
+            description: ""
+          - name: last_updated
+            data_type: timestamp_ntz
             description: ""
 
       - name: sales
@@ -110,10 +134,10 @@ sources:
             data_type: varchar
             description: ""
           - name: sale_date
-            data_type: date
+            data_type: varchar
             description: ""
           - name: sale_price
-            data_type: number
+            data_type: varchar
             description: ""
           - name: financing_type
             data_type: varchar
@@ -130,6 +154,12 @@ sources:
           - name: promotion_id
             data_type: varchar
             description: ""
+          - name: is_active
+            data_type: boolean
+            description: ""
+          - name: last_updated
+            data_type: timestamp_ntz
+            description: ""
 
       - name: salespeople
         description: ""
@@ -141,10 +171,16 @@ sources:
             data_type: varchar
             description: ""
           - name: hire_date
-            data_type: date
+            data_type: varchar
             description: ""
           - name: branch_id
-            data_type: number
+            data_type: varchar
+            description: ""
+          - name: is_active
+            data_type: boolean
+            description: ""
+          - name: last_updated
+            data_type: timestamp_ntz
             description: ""
 
       - name: services
@@ -153,20 +189,31 @@ sources:
           - name: service_id
             data_type: varchar
             description: ""
+            tests:
+              - not_null
+              - unique
           - name: vehicle_id
             data_type: varchar
             description: ""
-          - name: service_date
-            data_type: date
+            tests:
+            - not_null
+          - name: service_date 
+            data_type: varchar
             description: ""
           - name: service_type
             data_type: varchar
             description: ""
-          - name: cost
-            data_type: number
+          - name: cost 
+            data_type: varchar
             description: ""
           - name: mechanic_name
             data_type: varchar
+            description: ""
+          - name: is_active
+            data_type: boolean
+            description: ""
+          - name: last_updated
+            data_type: timestamp_ntz
             description: ""
 
       - name: vehicles
@@ -185,11 +232,17 @@ sources:
             data_type: varchar
             description: ""
           - name: year
-            data_type: number
+            data_type: varchar
             description: ""
           - name: price
-            data_type: number
+            data_type: varchar
             description: ""
           - name: inventory_status
             data_type: varchar
+            description: ""
+          - name: is_active
+            data_type: boolean
+            description: ""
+          - name: last_updated
+            data_type: timestamp_ntz
             description: ""

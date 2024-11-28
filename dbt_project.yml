@@ -41,4 +41,5 @@ models:
     example:
       +materialized: table
     staging:
+      +schema: concesionario
       +materialized: view
