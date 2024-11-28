@@ -35,3 +35,60 @@ models:
       - name: last_updated_utc
         data_type: timestamp_ntz
         description: ""
+
+  - name: stg_concesionario__services
+    description: ""
+    columns:
+      - name: service_id
+        data_type: varchar
+        description: ""
+
+      - name: vehicle_id
+        data_type: varchar
+        description: ""
+
+      - name: service_date
+        data_type: date
+        description: ""
+
+      - name: service_type_id
+        data_type: varchar
+        description: ""
+
+      - name: cost_usd
+        data_type: float
+        description: ""
+
+      - name: mechanic_id
+        data_type: varchar
+        description: ""
+
+      - name: is_active
+        data_type: boolean
+        description: ""
+
+      - name: last_updated_utc
+        data_type: timestamp_ntz
+        description: ""
+  
+  - name: stg_concesionario__service_types
+    description: ""
+    columns:
+      - name: service_type_id
+        data_type: varchar
+        description: ""
+
+      - name: service_type
+        data_type: varchar
+        description: ""
+
+  - name: stg_concesionario__mechanics
+    description: ""
+    columns:
+      - name: mechanic_id
+        data_type: varchar
+        description: ""
+
+      - name: mechanic_name
+        data_type: varchar
+        description: ""
