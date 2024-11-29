@@ -75,3 +75,5 @@ cte_service_final AS (
 -- Selección final
 SELECT * 
 FROM cte_service_final
+
+ -- añado esto ?? avg_service_cost_usd_by_type float

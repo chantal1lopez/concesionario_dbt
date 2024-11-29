@@ -12,16 +12,11 @@ SELECT
     vehicle_id,                             
     branch_id,                              
     campaign_id,                            
-    salesperson_id,                         
-    sale_price_usd,                         
-    vehicle_price_usd,                      
+    salesperson_id, 
+    promotion_id,                        
+    final_price_usd,                         
+    base_price_usd,                      
     profit_margin,                          
     discount_value,                         
-    financing_type,                         
-    total_sales_revenue_usd_by_branch,      
-    total_sales_count_by_branch,            
-    sales_count_by_financing_type,          
-    sales_revenue_usd_by_campaign,          
-    sales_count_by_salesperson,            
-    sales_revenue_by_salesperson             
+    financing_type            
 FROM source         
