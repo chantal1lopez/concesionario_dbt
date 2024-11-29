@@ -7,7 +7,7 @@ SELECT
     customer_id,
     vehicle_id,
     TRY_CAST(sale_date AS DATE) AS sale_date,
-    TRY_CAST(sale_price AS FLOAT) AS sale_price,
+    TRY_CAST(sale_price AS FLOAT) AS sale_price_usd,
     financing_type,
     salesperson_id,
     branch_id,
