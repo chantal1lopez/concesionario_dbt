@@ -1,14 +1,15 @@
 WITH source AS (
-    SELECT * FROM {{ source('concesionario', 'campaigns') }}
+    SELECT * FROM {{ source('concesionario', 'promotions') }}
 )
 
 SELECT
-    campaign_id,
+    promotion_id,
     name,
     TRY_CAST(start_date AS DATE) AS start_date,
     TRY_CAST(end_date AS DATE) AS end_date,
-    TRY_CAST(budget AS FLOAT) AS budget_usd,
-    channel,
+    discount_type,
+    TRY_CAST(discount_value AS FLOAT) AS discount_value,
+    campaign_id,
     is_active,
     last_updated AS last_updated_utc
 FROM source

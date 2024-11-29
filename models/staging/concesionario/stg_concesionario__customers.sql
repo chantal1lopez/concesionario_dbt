@@ -1,16 +1,15 @@
 WITH source AS (
-    SELECT * 
-    FROM {{ ref('base_concesionario__customers') }}
-
+    SELECT * FROM {{ source('concesionario', 'customers') }}
 )
 
-SELECT 
+SELECT
     customer_id,
     name,
     email,
     phone,
-    address_id,
-    segment_id,
+    city,
+    state,
+    segment,
     is_active,
-    last_updated_utc
+    last_updated AS last_updated_utc
 FROM source

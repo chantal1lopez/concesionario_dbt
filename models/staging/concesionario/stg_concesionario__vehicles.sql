@@ -1,17 +1,15 @@
 WITH source AS (
-    SELECT * 
-    FROM {{ ref('base_concesionario__vehicles') }}
-
+    SELECT * FROM {{ source('concesionario', 'vehicles') }}
 )
 
-SELECT 
+SELECT
     vehicle_id,
     model,
-    brand_id,
-    type_id,
+    brand AS brand_name,
+    type AS type_name,
     year,
-    price_usd,
-    inventory_status_id,
+    price AS price_usd,
+    inventory_status,
     is_active,
-    last_updated_utc
+    last_updated AS last_updated_utc
 FROM source
