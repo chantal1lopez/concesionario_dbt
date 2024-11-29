@@ -6,5 +6,5 @@ WITH source AS (
 
 SELECT 
     service_type_id,
-    service_type
+    service_type as service_type_name
 FROM source
