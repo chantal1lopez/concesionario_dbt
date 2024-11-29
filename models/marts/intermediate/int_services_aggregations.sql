@@ -21,27 +21,17 @@ cte_vehicle_metrics AS (
     SELECT
         vehicle_id,
         SUM(service_cost_usd) AS total_service_cost_usd_per_vehicle,
-        COUNT(service_id) AS total_services_per_vehicle,
-        AVG(service_cost_usd) AS average_service_cost_usd_per_vehicle
+        COUNT(service_id) AS total_services_per_vehicle
     FROM cte_base_services
     GROUP BY vehicle_id
-),
-
-cte_mechanic_metrics AS (
-    -- Métricas agregadas a nivel de mecánico
-    SELECT
-        mechanic_id,
-        SUM(service_cost_usd) AS total_service_cost_usd_per_mechanic,
-        COUNT(service_id) AS services_count_per_mechanic
-    FROM cte_base_services
-    GROUP BY mechanic_id
 ),
 
 cte_service_type_metrics AS (
     -- Métricas agregadas a nivel de tipo de servicio
     SELECT
         service_type_id,
-        COUNT(service_id) AS services_count_by_type
+        COUNT(service_id) AS services_count_by_type,
+        SUM(service_cost_usd) AS total_service_cost_usd_by_type
     FROM cte_base_services
     GROUP BY service_type_id
 ),
@@ -62,18 +52,13 @@ cte_service_final AS (
         
         vm.total_service_cost_usd_per_vehicle,
         vm.total_services_per_vehicle,
-        vm.average_service_cost_usd_per_vehicle,
-        mm.total_service_cost_usd_per_mechanic,
-        mm.services_count_per_mechanic,
-        stm.services_count_by_type
+        stm.services_count_by_type,
+        stm.total_service_cost_usd_by_type 
     FROM cte_base_services bs
     LEFT JOIN cte_vehicle_metrics vm ON bs.vehicle_id = vm.vehicle_id
-    LEFT JOIN cte_mechanic_metrics mm ON bs.mechanic_id = mm.mechanic_id
     LEFT JOIN cte_service_type_metrics stm ON bs.service_type_id = stm.service_type_id
 )
 
 -- Selección final
 SELECT * 
 FROM cte_service_final
-
- -- añado esto ?? avg_service_cost_usd_by_type float

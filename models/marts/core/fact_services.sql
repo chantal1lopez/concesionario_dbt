@@ -11,11 +11,9 @@ SELECT
     vehicle_id,                          
     service_type_id,                     
     mechanic_id,                         
-    service_cost_usd,                    
-    total_service_cost_usd_per_vehicle,  
-    total_services_per_vehicle,          
-    average_service_cost_usd_per_vehicle,            
-    total_service_cost_usd_per_mechanic, 
-    services_count_per_mechanic,         
-    services_count_by_type               
+    service_cost_usd, 
+    services_count_by_type,
+    total_service_cost_usd_by_type,
+    total_services_per_vehicle,                          
+    total_service_cost_usd_per_vehicle             
 FROM source         
