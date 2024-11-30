@@ -46,8 +46,8 @@ models:
     marts:
       intermediate:
         +schema: concesionario
-        +materialized: view
+        +materialized: incremental
       core:
         +database: ALUMNO24_DEV_GOLD_DB
         +schema: concesionario
-        +materialized: table
+        +materialized: incremental
