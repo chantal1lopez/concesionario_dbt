@@ -7,6 +7,9 @@ models:
       - name: sale_id
         data_type: varchar
         description: "Unique identifier for the sale."
+        tests:
+          - unique
+          - not_null
       - name: sale_date
         data_type: date
         description: "Date when the sale was made."
@@ -19,6 +22,9 @@ models:
       - name: final_price_usd
         data_type: float
         description: "Final sale price in USD."
+        tests:
+          - not_null
+          - positive_values
       - name: base_price_usd
         data_type: varchar
         description: "Base price of the vehicle before discounts and promotions."
@@ -49,16 +55,33 @@ models:
       - name: discount_value
         data_type: float
         description: "Value of the discount applied to the sale in USD."
+        tests:
+          - positive_values
       - name: profit_margin
         data_type: float
         description: "Profit margin from the sale, calculated as the difference between the final price and the base price."
+        tests:
+          - positive_values
 
   - name: int_services_aggregations
     description: "Intermediate model that groups and calculates metrics related to services performed, including costs, service types, and vehicle details."
+    tests:
+      - not_null_combination_of_columns:
+          combination_of_columns:
+            - service_id
+            - service_type_id
+      - unique_combination_of_columns:
+          combination_of_columns:
+            - service_id
+            - service_type_id
+
     columns:
       - name: service_id
         data_type: varchar
         description: "Unique identifier for the service performed."
+        tests:
+          - unique
+          - not_null
       - name: service_date
         data_type: date
         description: "Date when the service was performed."
@@ -83,6 +106,8 @@ models:
       - name: service_cost_usd
         data_type: float
         description: "Cost of the service in USD."
+        tests:
+          - positive_values
       - name: mechanic_id
         data_type: varchar
         description: "Identifier of the mechanic who performed the service."
@@ -98,12 +123,20 @@ models:
       - name: total_service_cost_usd_per_vehicle
         data_type: float
         description: "Total cost of services performed for a vehicle in USD."
+        tests:
+          - positive_values
       - name: total_services_per_vehicle
         data_type: number
         description: "Total number of services performed for a vehicle."
+        tests:
+          - positive_values
       - name: services_count_by_type
         data_type: number
         description: "Total number of services performed by type."
+        tests:
+          - positive_values
       - name: total_service_cost_usd_by_type
         data_type: float
         description: "Total cost in USD by type of service."
+        tests:
+          - positive_values
