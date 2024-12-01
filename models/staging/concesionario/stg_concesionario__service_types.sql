@@ -7,5 +7,6 @@ WITH source AS (
 SELECT 
     DISTINCT  service_type_id,
     service_type as service_type_name,
+    is_active,
     last_updated_utc
 FROM source

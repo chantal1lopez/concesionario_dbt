@@ -17,7 +17,8 @@ WITH source AS (
         services_count_by_type,
         total_service_cost_usd_by_type,
         total_services_per_vehicle,                          
-        total_service_cost_usd_per_vehicle
+        total_service_cost_usd_per_vehicle,
+        is_active
     FROM {{ ref('int_services_aggregations') }}
     WHERE is_active = TRUE
 ),
@@ -52,7 +53,8 @@ new_rows AS (
         s.services_count_by_type,
         s.total_service_cost_usd_by_type,
         s.total_services_per_vehicle,                          
-        s.total_service_cost_usd_per_vehicle
+        s.total_service_cost_usd_per_vehicle,
+        s.is_active
     FROM source s
     LEFT JOIN {{ this }} t
     ON s.service_id = t.service_id AND s.service_type_id = t.service_type_id
@@ -77,7 +79,8 @@ SELECT
     services_count_by_type,
     total_service_cost_usd_by_type,
     total_services_per_vehicle,                          
-    total_service_cost_usd_per_vehicle
+    total_service_cost_usd_per_vehicle,
+    is_active
 FROM {{ ref('int_services_aggregations') }}
 WHERE is_active = TRUE
 {% endif %}

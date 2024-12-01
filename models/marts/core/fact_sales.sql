@@ -80,7 +80,8 @@ SELECT
     base_price_usd,                          
     profit_margin,                           
     discount_value,                          
-    financing_type                           
+    financing_type,
+    is_active                           
 FROM {{ ref('int_sales_sum') }}
 WHERE is_active = TRUE
 {% endif %}
