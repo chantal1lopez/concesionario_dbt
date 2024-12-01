@@ -2,545 +2,302 @@ version: 2
 
 models:
   - name: base_concesionario__services
-    description: ""
+    description: "Base table for vehicle service records, consolidating raw service data before transformations."
     columns:
       - name: service_id
         data_type: varchar
-        description: ""
-
+        description: "Unique identifier for each service."
       - name: vehicle_id
         data_type: varchar
-        description: ""
-
+        description: "Identifier for the vehicle being serviced."
       - name: service_date
         data_type: date
-        description: ""
-
-      - name: service_type
-        data_type: varchar
-        description: ""
-
-      - name: cost
-        data_type: float
-        description: ""
-
-      - name: mechanic_name
-        data_type: varchar
-        description: ""
-
-      - name: is_active
-        data_type: boolean
-        description: ""
-
-      - name: last_updated_utc
-        data_type: timestamp_ntz
-        description: ""
-
-  - name: stg_concesionario__services
-    description: ""
-    columns:
-      - name: service_id
-        data_type: varchar
-        description: ""
-
-      - name: vehicle_id
-        data_type: varchar
-        description: ""
-
-      - name: service_date
-        data_type: date
-        description: ""
-
+        description: "Date when the service was performed."
       - name: service_type_id
         data_type: varchar
-        description: ""
-
+        description: "Identifier for the type of service performed."
+      - name: service_type
+        data_type: varchar
+        description: "Description of the type of service performed."
       - name: cost_usd
         data_type: float
-        description: ""
-
+        description: "Cost of the service in USD."
       - name: mechanic_id
         data_type: varchar
-        description: ""
-
+        description: "Identifier for the mechanic who performed the service."
+      - name: mechanic_name
+        data_type: varchar
+        description: "Name of the mechanic who performed the service."
       - name: is_active
         data_type: boolean
-        description: ""
-
+        description: "Indicates if the service record is currently active."
       - name: last_updated_utc
         data_type: timestamp_ntz
-        description: ""
-  
+        description: "Timestamp of the last update to the service record."
+
+  - name: stg_concesionario__branches
+    description: "Staged table for dealership branch details, including location and operational data."
+    columns:
+      - name: branch_id
+        data_type: varchar
+        description: "Unique identifier for each branch."
+      - name: branch_name
+        data_type: varchar
+        description: "Name of the branch."
+      - name: city
+        data_type: varchar
+        description: "City where the branch is located."
+      - name: state
+        data_type: varchar
+        description: "State where the branch is located."
+      - name: opened_date
+        data_type: date
+        description: "Date when the branch was opened."
+      - name: is_active
+        data_type: boolean
+        description: "Indicates if the branch is currently active."
+      - name: last_updated_utc
+        data_type: timestamp_ntz
+        description: "Timestamp of the last update to the branch record."
+
+  - name: stg_concesionario__campaigns
+    description: "Staged table for marketing campaign data, including details on duration, budget, and execution channel."
+    columns:
+      - name: campaign_id
+        data_type: varchar
+        description: "Unique identifier for each campaign."
+      - name: name
+        data_type: varchar
+        description: "Name of the campaign."
+      - name: start_date
+        data_type: date
+        description: "Start date of the campaign."
+      - name: end_date
+        data_type: date
+        description: "End date of the campaign."
+      - name: budget_usd
+        data_type: float
+        description: "Budget allocated for the campaign in USD."
+      - name: channel
+        data_type: varchar
+        description: "Channel used to execute the campaign (e.g., online, offline)."
+      - name: is_active
+        data_type: boolean
+        description: "Indicates if the campaign is currently active."
+      - name: last_updated_utc
+        data_type: timestamp_ntz
+        description: "Timestamp of the last update to the campaign record."
+
+  - name: stg_concesionario__customers
+    description: "Staged table for customer data, including contact information and segmentation."
+    columns:
+      - name: customer_id
+        data_type: varchar
+        description: "Unique identifier for each customer."
+      - name: name
+        data_type: varchar
+        description: "Name of the customer."
+      - name: email
+        data_type: varchar
+        description: "Email address of the customer."
+      - name: phone
+        data_type: varchar
+        description: "Phone number of the customer."
+      - name: city
+        data_type: varchar
+        description: "City where the customer resides."
+      - name: state
+        data_type: varchar
+        description: "State where the customer resides."
+      - name: segment
+        data_type: varchar
+        description: "Customer segment (e.g., Individual, Business)."
+      - name: is_active
+        data_type: boolean
+        description: "Indicates if the customer is currently active."
+      - name: last_updated_utc
+        data_type: timestamp_ntz
+        description: "Timestamp of the last update to the customer record."
+
+  - name: stg_concesionario__mechanics
+    description: "Staged table for mechanics, including their identification and activity status."
+    columns:
+      - name: mechanic_id
+        data_type: varchar
+        description: "Unique identifier for each mechanic."
+      - name: mechanic_name
+        data_type: varchar
+        description: "Name of the mechanic."
+      - name: is_active
+        data_type: boolean
+        description: "Indicates if the mechanic is currently active."
+      - name: last_updated_utc
+        data_type: timestamp_ntz
+        description: "Timestamp of the last update to the mechanic record."
+
+  - name: stg_concesionario__promotions
+    description: "Staged table for promotional offers, including details about discounts and associated campaigns."
+    columns:
+      - name: promotion_id
+        data_type: varchar
+        description: "Unique identifier for each promotion."
+      - name: name
+        data_type: varchar
+        description: "Name of the promotion."
+      - name: start_date
+        data_type: date
+        description: "Start date of the promotion."
+      - name: end_date
+        data_type: date
+        description: "End date of the promotion."
+      - name: discount_type
+        data_type: varchar
+        description: "Type of discount (e.g., percentage or fixed amount)."
+      - name: discount_value
+        data_type: float
+        description: "Value of the discount offered in the promotion."
+      - name: campaign_id
+        data_type: varchar
+        description: "Identifier for the associated campaign."
+      - name: is_active
+        data_type: boolean
+        description: "Indicates if the promotion is currently active."
+      - name: last_updated_utc
+        data_type: timestamp_ntz
+        description: "Timestamp of the last update to the promotion record."
+
+  - name: stg_concesionario__sales
+    description: "Staged table for sales transactions, including customer and vehicle details."
+    columns:
+      - name: sale_id
+        data_type: varchar
+        description: "Unique identifier for each sale."
+      - name: customer_id
+        data_type: varchar
+        description: "Identifier for the customer associated with the sale."
+      - name: vehicle_id
+        data_type: varchar
+        description: "Identifier for the vehicle sold."
+      - name: sale_date
+        data_type: date
+        description: "Date of the sale transaction."
+      - name: sale_price_usd
+        data_type: float
+        description: "Final price of the vehicle in USD."
+      - name: financing_type
+        data_type: varchar
+        description: "Type of financing used for the sale (e.g., cash, loan)."
+      - name: salesperson_id
+        data_type: varchar
+        description: "Identifier for the salesperson who facilitated the sale."
+      - name: branch_id
+        data_type: varchar
+        description: "Identifier for the branch where the sale occurred."
+      - name: campaign_id
+        data_type: varchar
+        description: "Identifier for the campaign associated with the sale."
+      - name: promotion_id
+        data_type: varchar
+        description: "Identifier for the promotion applied to the sale."
+      - name: is_active
+        data_type: boolean
+        description: "Indicates if the sale record is currently active."
+      - name: last_updated_utc
+        data_type: timestamp_ntz
+        description: "Timestamp of the last update to the sale record."
+
   - name: stg_concesionario__service_types
-    description: ""
+    description: "Staged table for types of services offered, including their identification and activity status."
     columns:
       - name: service_type_id
         data_type: varchar
-        description: ""
-
-      - name: service_type
+        description: "Unique identifier for each type of service."
+      - name: service_type_name
         data_type: varchar
-        description: ""
+        description: "Name or description of the service type."
+      - name: is_active
+        data_type: boolean
+        description: "Indicates if the service type is currently active."
+      - name: last_updated_utc
+        data_type: timestamp_ntz
+        description: "Timestamp of the last update to the service type record."
 
-  - name: stg_concesionario__mechanics
-    description: ""
+  - name: stg_concesionario__services
+    description: "Staged table for service records, including details about vehicle services and associated mechanics."
     columns:
+      - name: service_id
+        data_type: varchar
+        description: "Unique identifier for each service record."
+      - name: vehicle_id
+        data_type: varchar
+        description: "Identifier for the vehicle being serviced."
+      - name: service_date
+        data_type: date
+        description: "Date when the service was performed."
+      - name: service_type_id
+        data_type: varchar
+        description: "Identifier for the type of service performed."
+      - name: cost_usd
+        data_type: float
+        description: "Cost of the service in USD."
       - name: mechanic_id
         data_type: varchar
-        description: ""
-
-      - name: mechanic_name
-        data_type: varchar
-        description: ""
-
-  - name: base_concesionario__customers
-    description: ""
-    columns:
-      - name: customer_id
-        data_type: varchar
-        description: ""
-
-      - name: name
-        data_type: varchar
-        description: ""
-
-      - name: email
-        data_type: varchar
-        description: ""
-
-      - name: phone
-        data_type: varchar
-        description: ""
-
-      - name: city
-        data_type: varchar
-        description: ""
-
-      - name: state
-        data_type: varchar
-        description: ""
-
-      - name: address_id
-        data_type: varchar
-        description: ""
-
-      - name: segment_id
-        data_type: varchar
-        description: ""
-
-      - name: segment
-        data_type: varchar
-        description: ""
-
+        description: "Identifier for the mechanic who performed the service."
       - name: is_active
         data_type: boolean
-        description: ""
-
+        description: "Indicates if the service record is currently active."
       - name: last_updated_utc
         data_type: timestamp_ntz
-        description: ""
-
-  - name: base_concesionario__customers
-    description: ""
-    columns:
-      - name: customer_id
-        data_type: varchar
-        description: ""
-
-      - name: name
-        data_type: varchar
-        description: ""
-
-      - name: email
-        data_type: varchar
-        description: ""
-
-      - name: phone
-        data_type: varchar
-        description: ""
-
-      - name: city
-        data_type: varchar
-        description: ""
-
-      - name: state
-        data_type: varchar
-        description: ""
-
-      - name: address_id
-        data_type: varchar
-        description: ""
-
-      - name: segment_id
-        data_type: varchar
-        description: ""
-
-      - name: segment
-        data_type: varchar
-        description: ""
-
-      - name: is_active
-        data_type: boolean
-        description: ""
-
-      - name: last_updated_utc
-        data_type: timestamp_ntz
-        description: ""
-
-  - name: stg_concesionario__customers
-    description: ""
-    columns:
-      - name: customer_id
-        data_type: varchar
-        description: ""
-
-      - name: name
-        data_type: varchar
-        description: ""
-
-      - name: email
-        data_type: varchar
-        description: ""
-
-      - name: phone
-        data_type: varchar
-        description: ""
-
-      - name: address_id
-        data_type: varchar
-        description: ""
-
-      - name: segment_id
-        data_type: varchar
-        description: ""
-
-      - name: is_active
-        data_type: boolean
-        description: ""
-
-      - name: last_updated_utc
-        data_type: timestamp_ntz
-        description: ""
-
-  - name: stg_concesionario__addresses
-    description: ""
-    columns:
-      - name: address_id
-        data_type: varchar
-        description: ""
-
-      - name: city
-        data_type: varchar
-        description: ""
-
-      - name: state
-        data_type: varchar
-        description: ""
-
-  - name: stg_concesionario__customer_segments
-    description: ""
-    columns:
-      - name: segment_id
-        data_type: varchar
-        description: ""
-
-      - name: segment
-        data_type: varchar
-        description: ""
-
-  - name: base_concesionario__vehicles
-    description: ""
-    columns:
-      - name: vehicle_id
-        data_type: varchar
-        description: ""
-
-      - name: model
-        data_type: varchar
-        description: ""
-
-      - name: brand
-        data_type: varchar
-        description: ""
-
-      - name: brand_id
-        data_type: varchar
-        description: ""
-
-      - name: type
-        data_type: varchar
-        description: ""
-
-      - name: type_id
-        data_type: varchar
-        description: ""
-
-      - name: year
-        data_type: varchar
-        description: ""
-
-      - name: price_usd
-        data_type: varchar
-        description: ""
-
-      - name: inventory_status
-        data_type: varchar
-        description: ""
-
-      - name: inventory_status_id
-        data_type: varchar
-        description: ""
-
-      - name: is_active
-        data_type: boolean
-        description: ""
-
-      - name: last_updated_utc
-        data_type: timestamp_ntz
-        description: ""
-
-  - name: stg_concesionario__vehicles
-    description: ""
-    columns:
-      - name: vehicle_id
-        data_type: varchar
-        description: ""
-
-      - name: model
-        data_type: varchar
-        description: ""
-
-      - name: brand_id
-        data_type: varchar
-        description: ""
-
-      - name: type_id
-        data_type: varchar
-        description: ""
-
-      - name: year
-        data_type: varchar
-        description: ""
-
-      - name: price_usd
-        data_type: varchar
-        description: ""
-
-      - name: inventory_status_id
-        data_type: varchar
-        description: ""
-
-      - name: is_active
-        data_type: boolean
-        description: ""
-
-      - name: last_updated_utc
-        data_type: timestamp_ntz
-        description: ""
-
-  - name: stg_concesionario__vehicle_types
-    description: ""
-    columns:
-      - name: type_id
-        data_type: varchar
-        description: ""
-
-      - name: type_name
-        data_type: varchar
-        description: ""
-
-  - name: stg_concesionario__inventory_statuses
-    description: ""
-    columns:
-      - name: inventory_status_id
-        data_type: varchar
-        description: ""
-
-      - name: inventory_status_name
-        data_type: varchar
-        description: ""
-
-  - name: stg_concesionario__brands
-    description: ""
-    columns:
-      - name: brand_id
-        data_type: varchar
-        description: ""
-
-      - name: brand_name
-        data_type: varchar
-        description: ""
-
-  - name: base_concesionario__campaigns
-    description: ""
-    columns:
-      - name: campaign_id
-        data_type: varchar
-        description: ""
-
-      - name: name
-        data_type: varchar
-        description: ""
-
-      - name: start_date
-        data_type: date
-        description: ""
-
-      - name: end_date
-        data_type: date
-        description: ""
-
-      - name: budget_usd
-        data_type: float
-        description: ""
-
-      - name: channel_name
-        data_type: varchar
-        description: ""
-
-      - name: channel_id
-        data_type: varchar
-        description: ""
-
-      - name: is_active
-        data_type: boolean
-        description: ""
-
-      - name: last_updated_utc
-        data_type: timestamp_ntz
-        description: ""
-
-  - name: stg_concesionario__campaigns
-    description: ""
-    columns:
-      - name: campaign_id
-        data_type: varchar
-        description: ""
-
-      - name: name
-        data_type: varchar
-        description: ""
-
-      - name: start_date
-        data_type: date
-        description: ""
-
-      - name: end_date
-        data_type: date
-        description: ""
-
-      - name: budget_usd
-        data_type: float
-        description: ""
-
-      - name: channel_id
-        data_type: varchar
-        description: ""
-
-      - name: is_active
-        data_type: boolean
-        description: ""
-
-      - name: last_updated_utc
-        data_type: timestamp_ntz
-        description: ""
-
-  - name: stg_concesionario__campaign_channels
-    description: ""
-    columns:
-      - name: channel_id
-        data_type: varchar
-        description: ""
-
-      - name: channel_name
-        data_type: varchar
-        description: ""
-
+        description: "Timestamp of the last update to the service record."
   - name: stg_concesionario__salespeople
-    description: ""
+    description: "Staged table for salespeople, including branch assignments and hire dates."
     columns:
       - name: salesperson_id
         data_type: varchar
-        description: ""
-
+        description: "Unique identifier for each salesperson."
       - name: name
         data_type: varchar
-        description: ""
-
+        description: "Name of the salesperson."
       - name: hire_date
         data_type: date
-        description: ""
-
+        description: "The date when the salesperson was hired."
       - name: branch_id
         data_type: varchar
-        description: ""
-
+        description: "Identifier for the branch where the salesperson is assigned."
       - name: is_active
         data_type: boolean
-        description: ""
-
+        description: "Indicates if the salesperson is currently active."
       - name: last_updated_utc
         data_type: timestamp_ntz
-        description: ""
+        description: "Timestamp of the last update to the salesperson record."
 
-  - name: stg_concesionario__branches
-    description: ""
+  - name: stg_concesionario__vehicles
+    description: "Staged table for vehicles, including inventory and pricing details."
     columns:
-      - name: branch_id
+      - name: vehicle_id
         data_type: varchar
-        description: ""
-
-      - name: branch_name
+        description: "Unique identifier for each vehicle."
+      - name: model
         data_type: varchar
-        description: ""
-
-      - name: address_id
+        description: "Model name of the vehicle."
+      - name: brand_name
         data_type: varchar
-        description: ""
-
-      - name: opened_date
-        data_type: date
-        description: ""
-
+        description: "Brand name of the vehicle manufacturer."
+      - name: type_name
+        data_type: varchar
+        description: "Type or category of the vehicle (e.g., sedan, SUV, truck)."
+      - name: year
+        data_type: varchar
+        description: "Manufacture year of the vehicle."
+      - name: price_usd
+        data_type: varchar
+        description: "Price of the vehicle in USD."
+      - name: inventory_status
+        data_type: varchar
+        description: "Current inventory status of the vehicle (e.g., available, sold, reserved)."
       - name: is_active
         data_type: boolean
-        description: ""
-
+        description: "Indicates if the vehicle is currently active in inventory."
       - name: last_updated_utc
         data_type: timestamp_ntz
-        description: ""
-
-  - name: base_concesionario__branches
-    description: ""
-    columns:
-      - name: branch_id
-        data_type: varchar
-        description: ""
-
-      - name: branch_name
-        data_type: varchar
-        description: ""
-
-      - name: city
-        data_type: varchar
-        description: ""
-
-      - name: state
-        data_type: varchar
-        description: ""
-
-      - name: address_id
-        data_type: varchar
-        description: ""
-
-      - name: opened_date
-        data_type: date
-        description: ""
-
-      - name: is_active
-        data_type: boolean
-        description: ""
-
-      - name: last_updated_utc
-        data_type: timestamp_ntz
-        description: ""
+        description: "Timestamp of the last update to the vehicle record."
