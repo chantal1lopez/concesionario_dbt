@@ -6,5 +6,6 @@ WITH source AS (
 
 SELECT 
     DISTINCT  service_type_id,
-    service_type as service_type_name
+    service_type as service_type_name,
+    last_updated_utc
 FROM source
