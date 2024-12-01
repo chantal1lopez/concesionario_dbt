@@ -1,0 +1,21 @@
+version: 2
+
+models:
+  - name: fact_finance_summary
+    description: "Fact table summarizing financial metrics over specific periods, including revenue, costs, and margins."
+    columns:
+      - name: period
+        data_type: date
+        description: "The time period for which the financial metrics are summarized, typically truncated to the first day of the month or quarter."
+      - name: total_revenue
+        data_type: float
+        description: "The total revenue generated within the specified period, in USD."
+      - name: total_cost
+        data_type: float
+        description: "The total costs incurred within the specified period, including both direct and indirect costs, in USD."
+      - name: total_margin
+        data_type: float
+        description: "The overall profit margin for the period, calculated as the difference between total revenue and total costs, in USD."
+      - name: avg_margin_per_sale
+        data_type: float
+        description: "The average profit margin per sale within the specified period, calculated as the total margin divided by the total number of sales, in USD."

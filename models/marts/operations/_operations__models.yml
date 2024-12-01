@@ -1,0 +1,27 @@
+version: 2
+
+models:
+  - name: fact_service_efficiency
+    description: "Fact table capturing metrics to evaluate the efficiency of services performed across branches."
+    columns:
+      - name: branch_id
+        data_type: varchar
+        description: "Unique identifier for the branch where the services were performed."
+      - name: service_month
+        data_type: date
+        description: "The month in which the services were performed, truncated to the first day of the month."
+      - name: total_services
+        data_type: number
+        description: "The total number of services performed at the branch within the specified month."
+      - name: total_service_cost
+        data_type: float
+        description: "The total cost of all services performed at the branch within the specified month, in USD."
+      - name: avg_service_cost
+        data_type: float
+        description: "The average cost per service performed at the branch within the specified month, in USD."
+      - name: max_service_cost
+        data_type: float
+        description: "The highest cost of a single service performed at the branch within the specified month, in USD."
+      - name: min_service_cost
+        data_type: float
+        description: "The lowest cost of a single service performed at the branch within the specified month, in USD."

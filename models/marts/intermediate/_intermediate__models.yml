@@ -1,1 +1,109 @@
 version: 2
+
+models:
+  - name: int_sales_sum
+    description: "Intermediate model that aggregates and calculates metrics related to sales, including customer, vehicle, promotion, and profit margin information."
+    columns:
+      - name: sale_id
+        data_type: varchar
+        description: "Unique identifier for the sale."
+      - name: sale_date
+        data_type: date
+        description: "Date when the sale was made."
+      - name: customer_id
+        data_type: varchar
+        description: "Identifier of the customer associated with the sale."
+      - name: vehicle_id
+        data_type: varchar
+        description: "Identifier of the vehicle sold."
+      - name: final_price_usd
+        data_type: float
+        description: "Final sale price in USD."
+      - name: base_price_usd
+        data_type: varchar
+        description: "Base price of the vehicle before discounts and promotions."
+      - name: financing_type
+        data_type: varchar
+        description: "Type of financing used for the sale (e.g., cash or credit)."
+      - name: promotion_type
+        data_type: varchar
+        description: "Type of promotion applied to the sale."
+      - name: salesperson_id
+        data_type: varchar
+        description: "Identifier of the salesperson who handled the sale."
+      - name: branch_id
+        data_type: varchar
+        description: "Identifier of the branch where the sale took place."
+      - name: campaign_id
+        data_type: varchar
+        description: "Identifier of the marketing campaign associated with the sale."
+      - name: promotion_id
+        data_type: varchar
+        description: "Identifier of the promotion applied to the sale."
+      - name: last_updated_utc
+        data_type: timestamp_ntz
+        description: "Timestamp of the last update to the record."
+      - name: is_active
+        data_type: boolean
+        description: "Indicates whether the sale is active (TRUE) or has been removed or deactivated (FALSE)."
+      - name: discount_value
+        data_type: float
+        description: "Value of the discount applied to the sale in USD."
+      - name: profit_margin
+        data_type: float
+        description: "Profit margin from the sale, calculated as the difference between the final price and the base price."
+
+  - name: int_services_aggregations
+    description: "Intermediate model that groups and calculates metrics related to services performed, including costs, service types, and vehicle details."
+    columns:
+      - name: service_id
+        data_type: varchar
+        description: "Unique identifier for the service performed."
+      - name: service_date
+        data_type: date
+        description: "Date when the service was performed."
+      - name: vehicle_id
+        data_type: varchar
+        description: "Identifier of the vehicle serviced."
+      - name: vehicle_model
+        data_type: varchar
+        description: "Model of the vehicle serviced."
+      - name: vehicle_brand
+        data_type: varchar
+        description: "Brand of the vehicle serviced."
+      - name: vehicle_price_usd
+        data_type: varchar
+        description: "Price of the vehicle in USD."
+      - name: service_type_id
+        data_type: varchar
+        description: "Identifier of the type of service performed."
+      - name: service_type_name
+        data_type: varchar
+        description: "Name of the type of service performed."
+      - name: service_cost_usd
+        data_type: float
+        description: "Cost of the service in USD."
+      - name: mechanic_id
+        data_type: varchar
+        description: "Identifier of the mechanic who performed the service."
+      - name: customer_id
+        data_type: varchar
+        description: "Identifier of the customer who requested the service."
+      - name: last_updated_utc
+        data_type: timestamp_ntz
+        description: "Timestamp of the last update to the record."
+      - name: is_active
+        data_type: boolean
+        description: "Indicates whether the service is active (TRUE) or has been removed or deactivated (FALSE)."
+      - name: total_service_cost_usd_per_vehicle
+        data_type: float
+        description: "Total cost of services performed for a vehicle in USD."
+      - name: total_services_per_vehicle
+        data_type: number
+        description: "Total number of services performed for a vehicle."
+      - name: services_count_by_type
+        data_type: number
+        description: "Total number of services performed by type."
+      - name: total_service_cost_usd_by_type
+        data_type: float
+        description: "Total cost in USD by type of service."

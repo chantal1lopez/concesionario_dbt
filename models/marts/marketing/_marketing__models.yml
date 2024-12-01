@@ -1,0 +1,27 @@
+version: 2
+
+models:
+  - name: fact_campaign_effectiveness
+    description: "Fact table capturing the effectiveness of marketing campaigns based on sales and budget metrics."
+    columns:
+      - name: campaign_id
+        data_type: varchar
+        description: "Unique identifier for the marketing campaign."
+      - name: campaign_name
+        data_type: varchar
+        description: "The name of the marketing campaign."
+      - name: sales_month
+        data_type: date
+        description: "The month in which sales attributed to the campaign were made, truncated to the first day of the month."
+      - name: total_sales_revenue
+        data_type: float
+        description: "The total revenue generated from sales attributed to the campaign within the specified month, in USD."
+      - name: total_sales_count
+        data_type: number
+        description: "The total number of sales transactions attributed to the campaign within the specified month."
+      - name: campaign_budget
+        data_type: float
+        description: "The total budget allocated for the campaign, in USD."
+      - name: roi
+        data_type: float
+        description: "The return on investment for the campaign, calculated as the difference between total sales revenue and campaign budget, in USD."
