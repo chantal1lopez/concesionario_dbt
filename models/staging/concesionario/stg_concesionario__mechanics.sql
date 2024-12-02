@@ -4,7 +4,7 @@ WITH source AS (
 
 )
 
-SELECT 
+SELECT DISTINCT 
     mechanic_id,
     mechanic_name,
     is_active,
