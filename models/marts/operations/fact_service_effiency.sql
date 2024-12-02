@@ -2,14 +2,14 @@ WITH service_data AS (
     SELECT
         srv.service_id,
         srv.service_date,
-        srv.cost_usd AS service_cost_usd,
+        srv.service_cost_usd,
         veh.vehicle_id,
         sal.branch_id,
         srv.is_active
-    FROM {{ ref('stg_concesionario__services') }} srv
-    LEFT JOIN {{ ref('stg_concesionario__vehicles') }} veh
+    FROM {{ ref('fact_services') }} srv
+    LEFT JOIN {{ ref('dim_vehicle') }} veh
         ON srv.vehicle_id = veh.vehicle_id
-    LEFT JOIN {{ ref('stg_concesionario__sales') }} sal
+    LEFT JOIN {{ ref('fact_sales') }} sal
         ON veh.vehicle_id = sal.vehicle_id
     WHERE srv.is_active = TRUE
 ),
