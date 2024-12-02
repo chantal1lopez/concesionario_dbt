@@ -1,3 +1,9 @@
+{{ config(
+    materialized='view',
+    schema='concesionario',
+    database='ALUMNO24_DEV_GOLD_DB'
+) }}
+
 WITH service_data AS (
     SELECT
         srv.service_id,

@@ -1,5 +1,5 @@
 {{ config(
-    materialized='table',
+    materialized='view',
     database='ALUMNO24_DEV_GOLD_DB',
     schema='concesionario'
 ) }}

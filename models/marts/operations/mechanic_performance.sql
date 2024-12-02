@@ -1,3 +1,9 @@
+{{ config(
+    materialized='view',
+    schema='concesionario',
+    database='ALUMNO24_DEV_GOLD_DB'
+) }}
+
 WITH mechanic_performance AS (
     SELECT
         mec.mechanic_id,
