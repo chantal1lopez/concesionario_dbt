@@ -66,7 +66,7 @@ SELECT * FROM updated_rows
 UNION ALL
 SELECT * FROM new_rows
 
-{% else %}
+{% endif %}
 -- Primera ejecución: crear la tabla con todos los registros iniciales
 SELECT
     service_id,                           
@@ -83,4 +83,3 @@ SELECT
     is_active
 FROM {{ ref('int_services_aggregations') }}
 WHERE is_active = TRUE
-{% endif %}

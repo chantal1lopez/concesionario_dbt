@@ -15,7 +15,8 @@ WHERE last_updated_utc > (
     SELECT MAX(last_updated_utc)
     FROM {{ this }}
 )
-{% else %}
+{% endif %}
 SELECT *
 FROM source
-{% endif %}
+WHERE is_active = TRUE
+

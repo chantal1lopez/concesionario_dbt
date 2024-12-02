@@ -15,8 +15,9 @@ WHERE last_updated_utc > (
     SELECT MAX(last_updated_utc)
     FROM {{ this }}
 )
-{% else %}
+{% endif %}
 -- Primera carga: incluir todos los registros
 SELECT *
 FROM source
-{% endif %}
+WHERE is_active = TRUE
+
