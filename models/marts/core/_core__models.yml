@@ -57,6 +57,8 @@ models:
         description: "The end date of the campaign."
         tests:
           - not_null
+          - dbt_utils.expression_is_true:
+              expression: " > start_date"
       - name: budget_usd
         data_type: float
         description: "The budget allocated for the campaign, in USD."
@@ -69,6 +71,8 @@ models:
       - name: last_updated_utc
         data_type: timestamp_ntz
         description: "Timestamp of the last update to the campaign record."
+
+
 
   - name: dim_customers
     description: "Dimension table containing information about customers, including their contact details and segmentation."
@@ -112,6 +116,8 @@ models:
       - name: date_day
         data_type: date
         description: "The specific calendar date."
+        tests:
+          - unique
       - name: prior_date_day
         data_type: date
         description: "The date of the previous day."
@@ -263,6 +269,8 @@ models:
         description: "The end date of the promotion."
         tests:
           - not_null
+          - dbt_utils.expression_is_true:
+              expression: " > start_date"
       - name: discount_type
         data_type: varchar
         description: "Type of discount offered (e.g., percentage, fixed amount)."

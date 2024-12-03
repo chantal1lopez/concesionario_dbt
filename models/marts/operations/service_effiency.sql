@@ -17,7 +17,7 @@ WITH service_data AS (
         ON srv.vehicle_id = veh.vehicle_id
     LEFT JOIN {{ ref('fact_sales') }} sal
         ON veh.vehicle_id = sal.vehicle_id
-    WHERE srv.is_active = TRUE
+    WHERE srv.is_active = TRUE AND sal.branch_id is not null
 ),
 
 efficiency_metrics AS (
