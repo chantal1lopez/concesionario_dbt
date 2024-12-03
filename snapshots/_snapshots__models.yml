@@ -1,0 +1,104 @@
+version: 2
+
+models:
+  - name: campaigns_snapshot
+    description: "A snapshot table capturing the historical changes in marketing campaigns, including budget, status, and other attributes over time."
+    columns:
+      - name: campaign_id
+        data_type: varchar
+        description: "Unique identifier for each marketing campaign."
+
+      - name: name
+        data_type: varchar
+        description: "Name of the marketing campaign."
+
+      - name: start_date
+        data_type: date
+        description: "The date when the campaign began."
+
+      - name: end_date
+        data_type: date
+        description: "The date when the campaign ended."
+
+      - name: budget_usd
+        data_type: float
+        description: "The total allocated budget for the campaign in USD."
+
+      - name: channel
+        data_type: varchar
+        description: "The primary channel used for the campaign (e.g., email, social media, TV)."
+
+      - name: is_active
+        data_type: boolean
+        description: "Indicates whether the campaign is currently active."
+
+      - name: last_updated_utc
+        data_type: timestamp_ntz
+        description: "Timestamp of the last update made to the campaign's attributes."
+
+      - name: dbt_scd_id
+        data_type: varchar
+        description: "System-generated identifier for slowly changing dimension tracking."
+
+      - name: dbt_updated_at
+        data_type: timestamp_ntz
+        description: "Timestamp when the campaign data was last updated by dbt."
+
+      - name: dbt_valid_from
+        data_type: timestamp_ntz
+        description: "The start of the validity period for this snapshot record."
+
+      - name: dbt_valid_to
+        data_type: timestamp_ntz
+        description: "The end of the validity period for this snapshot record."
+
+  - name: services_snapshot
+    description: "A snapshot table tracking historical changes in vehicle services, including costs, types, and assigned mechanics."
+    columns:
+      - name: service_id
+        data_type: varchar
+        description: "Unique identifier for each service performed."
+
+      - name: vehicle_id
+        data_type: varchar
+        description: "Unique identifier for the vehicle associated with the service."
+
+      - name: service_date
+        data_type: date
+        description: "The date when the service was performed."
+
+      - name: service_type_id
+        data_type: varchar
+        description: "Unique identifier for the type of service performed (e.g., oil change, tire replacement)."
+
+      - name: cost_usd
+        data_type: float
+        description: "The total cost of the service in USD."
+
+      - name: mechanic_id
+        data_type: varchar
+        description: "Unique identifier for the mechanic who performed the service."
+
+      - name: is_active
+        data_type: boolean
+        description: "Indicates whether the service record is currently active."
+
+      - name: last_updated_utc
+        data_type: timestamp_ntz
+        description: "Timestamp of the last update made to the service's attributes."
+
+      - name: dbt_scd_id
+        data_type: varchar
+        description: "System-generated identifier for slowly changing dimension tracking."
+
+      - name: dbt_updated_at
+        data_type: timestamp_ntz
+        description: "Timestamp when the service data was last updated by dbt."
+
+      - name: dbt_valid_from
+        data_type: timestamp_ntz
+        description: "The start of the validity period for this snapshot record."
+
+      - name: dbt_valid_to
+        data_type: timestamp_ntz
+        description: "The end of the validity period for this snapshot record."

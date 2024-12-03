@@ -1,88 +1,49 @@
 {{ config(
     materialized='incremental',
-    unique_key='sale_id'
+    unique_key='sale_id',
+    post_hook="DELETE FROM {{ this }} WHERE is_active = FALSE"
 ) }}
 
+WITH
+    cte_source_sales AS (
+        -- Seleccionar todos los registros desde la fuente
+        SELECT
+            sale_id,                                 
+            sale_date,                               
+            customer_id,                             
+            vehicle_id,                             
+            branch_id,                               
+            campaign_id,                             
+            salesperson_id,                          
+            promotion_id,                            
+            final_price_usd,                         
+            base_price_usd,                          
+            profit_margin,                           
+            discount_value,                          
+            financing_type,
+            is_active,
+            last_updated_utc
+        FROM {{ ref('int_sales_sum') }}
+    ),
+    
+    cte_sales_metrics AS (
+        SELECT *
+        FROM cte_source_sales
+    )
+    
+    {% if is_incremental() %}
+    , cte_max_values AS (
+        -- Obtener los valores máximos actuales de sale_date y last_updated_utc
+        SELECT
+            MAX(sale_date) AS max_sale_date,
+            MAX(last_updated_utc) AS max_last_updated_utc
+        FROM {{ this }}
+    )
+    {% endif %}
+
+SELECT *
+FROM cte_sales_metrics
 {% if is_incremental() %}
-WITH source AS (
-    -- Seleccionar registros nuevos o actualizados desde `int_sales_sum`
-    SELECT
-        sale_id,                                 
-        sale_date,                               
-        customer_id,                             
-        vehicle_id,                             
-        branch_id,                               
-        campaign_id,                             
-        salesperson_id,                          
-        promotion_id,                            
-        final_price_usd,                         
-        base_price_usd,                          
-        profit_margin,                           
-        discount_value,                          
-        financing_type,
-        is_active                                
-    FROM {{ ref('int_sales_sum') }}
-),
-updated_rows AS (
-    -- Filtrar registros existentes que necesitan ser actualizados
-    SELECT s.*
-    FROM source s
-    JOIN {{ this }} t
-    ON s.sale_id = t.sale_id
-    WHERE (
-        s.sale_date != t.sale_date OR
-        s.customer_id != t.customer_id OR
-        s.vehicle_id != t.vehicle_id OR
-        s.branch_id != t.branch_id OR
-        s.campaign_id != t.campaign_id OR
-        s.salesperson_id != t.salesperson_id OR
-        s.promotion_id != t.promotion_id OR
-        s.final_price_usd != t.final_price_usd OR
-        s.base_price_usd != t.base_price_usd OR
-        s.profit_margin != t.profit_margin OR
-        s.discount_value != t.discount_value OR
-        s.financing_type != t.financing_type
-    ) AND s.is_active = TRUE
-),
-new_rows AS (
-    -- Seleccionar registros nuevos que no están en la tabla actual
-    SELECT s.*
-    FROM source s
-    LEFT JOIN {{ this }} t
-    ON s.sale_id = t.sale_id
-    WHERE t.sale_id IS NULL AND s.is_active = TRUE
-),
-inactive_rows AS (
-    -- Identificar registros inactivos (is_active = FALSE)
-    SELECT t.sale_id
-    FROM {{ this }} t
-    LEFT JOIN source s
-    ON t.sale_id = s.sale_id
-    WHERE s.sale_id IS NULL OR s.is_active = FALSE
-)
-
--- Combinar nuevos y actualizados registros
-SELECT * FROM updated_rows
-UNION ALL
-SELECT * FROM new_rows
+WHERE sale_date > (SELECT max_sale_date FROM cte_max_values)
+   OR last_updated_utc > (SELECT max_last_updated_utc FROM cte_max_values)
 {% endif %}
--- Primera ejecución: crear la tabla con todos los registros iniciales
-SELECT
-    sale_id,                                 
-    sale_date,                               
-    customer_id,                             
-    vehicle_id,                             
-    branch_id,                               
-    campaign_id,                             
-    salesperson_id,                          
-    promotion_id,                            
-    final_price_usd,                         
-    base_price_usd,                          
-    profit_margin,                           
-    discount_value,                          
-    financing_type,
-    is_active                           
-FROM {{ ref('int_sales_sum') }}
-WHERE is_active = TRUE
-
-

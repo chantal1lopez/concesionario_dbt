@@ -7,9 +7,14 @@ models:
       - name: branch_id
         data_type: varchar
         description: "Unique identifier for each branch."
+        tests:
+          - not_null
+          - unique
       - name: branch_name
         data_type: varchar
         description: "Name of the branch."
+        tests:
+          - not_null
       - name: city
         data_type: varchar
         description: "City where the branch is located."
@@ -19,6 +24,8 @@ models:
       - name: opened_date
         data_type: date
         description: "The date when the branch was opened."
+        tests:
+          - not_null
       - name: is_active
         data_type: boolean
         description: "Indicates whether the branch is currently operational."
@@ -32,15 +39,24 @@ models:
       - name: campaign_id
         data_type: varchar
         description: "Unique identifier for each campaign."
+        tests:
+          - not_null
+          - unique
       - name: name
         data_type: varchar
         description: "Name of the marketing campaign."
+        tests:
+          - not_null
       - name: start_date
         data_type: date
         description: "The start date of the campaign."
+        tests:
+          - not_null
       - name: end_date
         data_type: date
         description: "The end date of the campaign."
+        tests:
+          - not_null
       - name: budget_usd
         data_type: float
         description: "The budget allocated for the campaign, in USD."
@@ -60,9 +76,14 @@ models:
       - name: customer_id
         data_type: varchar
         description: "Unique identifier for each customer."
+        tests:
+          - not_null
+          - unique
       - name: name
         data_type: varchar
         description: "Name of the customer."
+        tests:
+          - not_null
       - name: email
         data_type: varchar
         description: "Email address of the customer."
@@ -203,9 +224,14 @@ models:
       - name: mechanic_id
         data_type: varchar
         description: "Unique identifier for each mechanic."
+        tests:
+          - not_null
+          - unique
       - name: mechanic_name
         data_type: varchar
         description: "Name of the mechanic."
+        tests:
+          - not_null
       - name: is_active
         data_type: boolean
         description: "Indicates whether the mechanic is currently active."
@@ -219,15 +245,24 @@ models:
       - name: promotion_id
         data_type: varchar
         description: "Unique identifier for each promotion."
+        tests:
+          - not_null
+          - unique
       - name: name
         data_type: varchar
         description: "Name of the promotion."
+        tests:
+          - not_null
       - name: start_date
         data_type: date
         description: "The start date of the promotion."
+        tests:
+          - not_null
       - name: end_date
         data_type: date
         description: "The end date of the promotion."
+        tests:
+          - not_null
       - name: discount_type
         data_type: varchar
         description: "Type of discount offered (e.g., percentage, fixed amount)."
@@ -250,9 +285,14 @@ models:
       - name: salesperson_id
         data_type: varchar
         description: "Unique identifier for each salesperson."
+        tests:
+          - not_null
+          - unique
       - name: name
         data_type: varchar
         description: "Name of the salesperson."
+        tests:
+          - not_null
       - name: hire_date
         data_type: date
         description: "Date when the salesperson was hired."
@@ -272,9 +312,14 @@ models:
       - name: service_type_id
         data_type: varchar
         description: "Unique identifier for each type of service."
+        tests:
+          - not_null
+          - unique
       - name: service_type_name
         data_type: varchar
         description: "Name of the service type (e.g., oil change, tire rotation)."
+        tests:
+          - not_null
       - name: is_active
         data_type: boolean
         description: "Indicates whether the service type is currently active."
@@ -288,6 +333,9 @@ models:
       - name: vehicle_id
         data_type: varchar
         description: "Unique identifier for each vehicle."
+        tests:
+          - not_null
+          - unique
       - name: model
         data_type: varchar
         description: "Model name of the vehicle."
@@ -319,9 +367,14 @@ models:
       - name: sale_id
         data_type: varchar
         description: "Unique identifier for each sale transaction."
+        tests:
+          - not_null
+          - unique
       - name: sale_date
         data_type: date
         description: "Date on which the sale occurred."
+        tests:
+          - not_null
       - name: customer_id
         data_type: varchar
         description: "Identifier for the customer associated with the sale."
@@ -365,9 +418,14 @@ models:
       - name: service_id
         data_type: varchar
         description: "Unique identifier for each service transaction."
+        tests:
+          - not_null
+          - unique
       - name: service_date
         data_type: date
         description: "Date on which the service was performed."
+        tests:
+          - not_null
       - name: vehicle_id
         data_type: varchar
         description: "Identifier for the vehicle that received the service."
@@ -383,18 +441,3 @@ models:
       - name: service_cost_usd
         data_type: float
         description: "Cost of the service performed in USD."
-      - name: services_count_by_type
-        data_type: number
-        description: "Total number of services performed by type."
-      - name: total_service_cost_usd_by_type
-        data_type: float
-        description: "Total cost of services by type in USD."
-      - name: total_services_per_vehicle
-        data_type: number
-        description: "Total number of services performed for a specific vehicle."
-      - name: total_service_cost_usd_per_vehicle
-        data_type: float
-        description: "Total cost of services performed for a specific vehicle in USD."
-      - name: is_active
-        data_type: boolean
-        description: "Indicates whether the service record is currently active."
