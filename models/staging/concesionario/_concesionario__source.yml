@@ -1,0 +1,312 @@
+version: 2
+
+sources:
+  - name: concesionario
+    description: "Source data from the Concesionario database, including information about branches, campaigns, customers, promotions, sales, vehicles, and services."
+    database: alumno24_dev_bronze_db
+    schema: concesionario
+    tables:
+      - name: branches
+        description: "Branch details for the dealership network, including locations and opening dates."
+        columns:
+          - name: branch_id
+            data_type: varchar
+            description: "Unique identifier for each branch."
+            tests:
+              - unique
+              - not_null
+          - name: branch_name
+            data_type: varchar
+            description: "Name of the branch."
+          - name: city
+            data_type: varchar
+            description: "City where the branch is located."
+          - name: state
+            data_type: varchar
+            description: "State where the branch is located."
+          - name: opened_date
+            data_type: varchar
+            description: "Date when the branch was opened."
+          - name: is_active
+            data_type: boolean
+            description: "Indicates if the branch is currently active."
+          - name: last_updated
+            data_type: timestamp_ntz
+            description: "Timestamp of the last update to the branch record."
+
+      - name: campaigns
+        description: "Marketing campaigns associated with dealership sales and promotions."
+        columns:
+          - name: campaign_id
+            data_type: varchar
+            description: "Unique identifier for each campaign."
+            tests:
+              - unique
+              - not_null
+          - name: name
+            data_type: varchar
+            description: "Name of the campaign."
+          - name: start_date
+            data_type: varchar
+            description: "Start date of the campaign."
+          - name: end_date
+            data_type: varchar
+            description: "End date of the campaign."
+          - name: budget
+            data_type: varchar
+            description: "Budget allocated for the campaign."
+          - name: channel
+            data_type: varchar
+            description: "Channel through which the campaign is executed."
+          - name: is_active
+            data_type: boolean
+            description: "Indicates if the campaign is currently active."
+          - name: last_updated
+            data_type: timestamp_ntz
+            description: "Timestamp of the last update to the campaign record."
+
+      - name: customers
+        description: "Details about customers, including contact information and segmentation."
+        columns:
+          - name: customer_id
+            data_type: varchar
+            description: "Unique identifier for each customer."
+            tests:
+              - unique
+              - not_null
+          - name: name
+            data_type: varchar
+            description: "Name of the customer."
+          - name: email
+            data_type: varchar
+            description: "Email address of the customer."
+          - name: phone
+            data_type: varchar
+            description: "Phone number of the customer."
+          - name: city
+            data_type: varchar
+            description: "City where the customer resides."
+          - name: segment
+            data_type: varchar
+            description: "Customer segment."
+          - name: state
+            data_type: varchar
+            description: "State where the customer resides."
+          - name: is_active
+            data_type: boolean
+            description: "Indicates if the customer is currently active."
+          - name: last_updated
+            data_type: timestamp_ntz
+            description: "Timestamp of the last update to the customer record."
+
+      - name: promotions
+        description: "Promotions offered by the dealership, including discounts and associated campaigns."
+        columns:
+          - name: promotion_id
+            data_type: varchar
+            description: "Unique identifier for each promotion."
+            tests:
+              - unique
+              - not_null
+          - name: name
+            data_type: varchar
+            description: "Name of the promotion."
+          - name: start_date
+            data_type: varchar
+            description: "Start date of the promotion."
+          - name: end_date
+            data_type: varchar
+            description: "End date of the promotion."
+          - name: discount_type
+            data_type: varchar
+            description: "Type of discount (e.g., percentage, fixed amount)."
+          - name: discount_value
+            data_type: varchar
+            description: "Value of the discount."
+          - name: campaign_id
+            data_type: varchar
+            description: "Campaign associated with the promotion."
+            tests:
+              - relationships:
+                  to: ref('campaigns')
+                  field: campaign_id
+          - name: is_active
+            data_type: boolean
+            description: "Indicates if the promotion is currently active."
+          - name: last_updated
+            data_type: timestamp_ntz
+            description: "Timestamp of the last update to the promotion record."
+
+      - name: sales
+        description: "Sales data, including details about customers, vehicles, and associated promotions."
+        columns:
+          - name: sale_id
+            data_type: varchar
+            description: "Unique identifier for each sale."
+            tests:
+              - unique
+              - not_null
+          - name: customer_id
+            data_type: varchar
+            description: "Identifier for the customer associated with the sale."
+            tests:
+              - relationships:
+                  to: ref('customers')
+                  field: customer_id
+          - name: vehicle_id
+            data_type: varchar
+            description: "Identifier for the vehicle sold."
+          - name: sale_date
+            data_type: varchar
+            description: "Date when the sale occurred."
+          - name: sale_price
+            data_type: varchar
+            description: "Final price of the sale."
+          - name: financing_type
+            data_type: varchar
+            description: "Type of financing used for the sale."
+          - name: salesperson_id
+            data_type: varchar
+            description: "Identifier for the salesperson responsible for the sale."
+            tests:
+              - relationships:
+                  to: ref('salespeople')
+                  field: salesperson_id
+          - name: branch_id
+            data_type: varchar
+            description: "Branch where the sale occurred."
+            tests:
+              - relationships:
+                  to: ref('branches')
+                  field: branch_id
+          - name: campaign_id
+            data_type: varchar
+            description: "Campaign associated with the sale."
+            tests:
+              - relationships:
+                  to: ref('campaigns')
+                  field: campaign_id
+          - name: promotion_id
+            data_type: varchar
+            description: "Promotion applied to the sale."
+            tests:
+              - relationships:
+                  to: ref('promotions')
+                  field: promotion_id
+          - name: is_active
+            data_type: boolean
+            description: "Indicates if the sale is currently active."
+          - name: last_updated
+            data_type: timestamp_ntz
+            description: "Timestamp of the last update to the sale record."
+
+      - name: salespeople
+        description: "Information about salespeople, including branch assignments."
+        columns:
+          - name: salesperson_id
+            data_type: varchar
+            description: "Unique identifier for each salesperson."
+            tests:
+              - unique
+              - not_null
+          - name: name
+            data_type: varchar
+            description: "Name of the salesperson."
+          - name: hire_date
+            data_type: varchar
+            description: "Hire date of the salesperson."
+          - name: branch_id
+            data_type: varchar
+            description: "Branch where the salesperson is assigned."
+          - name: is_active
+            data_type: boolean
+            description: "Indicates if the salesperson is currently active."
+          - name: last_updated
+            data_type: timestamp_ntz
+            description: "Timestamp of the last update to the salesperson record."
+
+      - name: services
+        description: "Service records for vehicles, including costs and types of service performed."
+        columns:
+        - name: service_id
+          data_type: varchar
+          description: "Unique identifier for each service."
+          tests:
+            - not_null
+        - name: vehicle_id
+          data_type: varchar
+          description: "Identifier for the vehicle serviced."
+          tests:
+              - not_null
+              - relationships:
+                  to: ref('vehicles')
+                  field: vehicle_id
+
+        - name: service_date
+          data_type: varchar
+          description: "Date when the service was performed."
+
+        - name: service_type
+          data_type: varchar
+          description: "Type of service performed."
+          tests:
+            - not_null
+
+        - name: cost
+          data_type: varchar
+          description: "Cost of the service."
+
+        - name: mechanic_name
+          data_type: varchar
+          description: "Name of the mechanic who performed the service."
+
+        - name: is_active
+          data_type: boolean
+          description: "Indicates if the service record is currently active."
+
+        - name: last_updated
+          data_type: timestamp_ntz
+          description: "Timestamp of the last update to the service record."
+        tests:
+          - not_null_combination_of_columns:
+              combination_of_columns:
+                - service_id
+                - service_type
+          - unique_combination_of_columns:
+              combination_of_columns:
+                - service_id
+                - service_type
+
+      - name: vehicles
+        description: "Details about vehicles in inventory, including pricing and status."
+        columns:
+          - name: vehicle_id
+            data_type: varchar
+            description: "Unique identifier for each vehicle."
+            tests:
+              - unique
+              - not_null
+          - name: model
+            data_type: varchar
+            description: "Model name of the vehicle."
+          - name: brand
+            data_type: varchar
+            description: "Brand of the vehicle."
+          - name: type
+            data_type: varchar
+            description: "Type of the vehicle (e.g., SUV, sedan)."
+          - name: year
+            data_type: varchar
+            description: "Manufacture year of the vehicle."
+          - name: price
+            data_type: varchar
+            description: "Price of the vehicle."
+          - name: inventory_status
+            data_type: varchar
+            description: "Current status of the vehicle in inventory (e.g., available, sold)."
+          - name: is_active
+            data_type: boolean
+            description: "Indicates if the vehicle is currently active in inventory."
+          - name: last_updated
+            data_type: timestamp_ntz
+            description: "Timestamp of the last update to the vehicle record."

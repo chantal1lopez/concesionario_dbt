@@ -1,0 +1,451 @@
+version: 2
+
+models:
+  - name: dim_branch
+    description: "Dimension table containing information about dealership branches, including their location and operational status."
+    columns:
+      - name: branch_id
+        data_type: varchar
+        description: "Unique identifier for each branch."
+        tests:
+          - not_null
+          - unique
+      - name: branch_name
+        data_type: varchar
+        description: "Name of the branch."
+        tests:
+          - not_null
+      - name: city
+        data_type: varchar
+        description: "City where the branch is located."
+      - name: state
+        data_type: varchar
+        description: "State where the branch is located."
+      - name: opened_date
+        data_type: date
+        description: "The date when the branch was opened."
+        tests:
+          - not_null
+      - name: is_active
+        data_type: boolean
+        description: "Indicates whether the branch is currently operational."
+      - name: last_updated_utc
+        data_type: timestamp_ntz
+        description: "Timestamp of the last update to the branch record."
+
+  - name: dim_campaigns
+    description: "Dimension table containing details about marketing campaigns, including their budgets and channels."
+    columns:
+      - name: campaign_id
+        data_type: varchar
+        description: "Unique identifier for each campaign."
+        tests:
+          - not_null
+          - unique
+      - name: name
+        data_type: varchar
+        description: "Name of the marketing campaign."
+        tests:
+          - not_null
+      - name: start_date
+        data_type: date
+        description: "The start date of the campaign."
+        tests:
+          - not_null
+      - name: end_date
+        data_type: date
+        description: "The end date of the campaign."
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: " > start_date"
+      - name: budget_usd
+        data_type: float
+        description: "The budget allocated for the campaign, in USD."
+      - name: channel
+        data_type: varchar
+        description: "The primary channel used for the campaign (e.g., online, TV, print)."
+      - name: is_active
+        data_type: boolean
+        description: "Indicates whether the campaign is currently active."
+      - name: last_updated_utc
+        data_type: timestamp_ntz
+        description: "Timestamp of the last update to the campaign record."
+
+
+
+  - name: dim_customers
+    description: "Dimension table containing information about customers, including their contact details and segmentation."
+    columns:
+      - name: customer_id
+        data_type: varchar
+        description: "Unique identifier for each customer."
+        tests:
+          - not_null
+          - unique
+      - name: name
+        data_type: varchar
+        description: "Name of the customer."
+        tests:
+          - not_null
+      - name: email
+        data_type: varchar
+        description: "Email address of the customer."
+      - name: phone
+        data_type: varchar
+        description: "Phone number of the customer."
+      - name: city
+        data_type: varchar
+        description: "City where the customer resides."
+      - name: state
+        data_type: varchar
+        description: "State where the customer resides."
+      - name: segment
+        data_type: varchar
+        description: "Customer segment (e.g., individual, business)."
+      - name: is_active
+        data_type: boolean
+        description: "Indicates whether the customer is currently active in the database."
+      - name: last_updated_utc
+        data_type: timestamp_ntz
+        description: "Timestamp of the last update to the customer record."
+
+  - name: dim_date
+    description: "Dimension table providing detailed date attributes to support time-based analysis."
+    columns:
+      - name: date_day
+        data_type: date
+        description: "The specific calendar date."
+        tests:
+          - unique
+      - name: prior_date_day
+        data_type: date
+        description: "The date of the previous day."
+      - name: next_date_day
+        data_type: date
+        description: "The date of the next day."
+      - name: prior_year_date_day
+        data_type: date
+        description: "The same day in the previous year."
+      - name: prior_year_over_year_date_day
+        data_type: date
+        description: "A comparison date in the prior year for year-over-year analysis."
+      - name: day_of_week
+        data_type: number
+        description: "The numeric representation of the day of the week (1 for Sunday, 7 for Saturday)."
+      - name: day_of_week_iso
+        data_type: number
+        description: "ISO standard numeric representation of the day of the week (1 for Monday, 7 for Sunday)."
+      - name: day_of_week_name
+        data_type: varchar
+        description: "Full name of the day (e.g., Monday, Tuesday)."
+      - name: day_of_week_name_short
+        data_type: varchar
+        description: "Shortened name of the day (e.g., Mon, Tue)."
+      - name: day_of_month
+        data_type: number
+        description: "The numeric representation of the day within the month."
+      - name: day_of_year
+        data_type: number
+        description: "The numeric representation of the day within the year."
+      - name: week_start_date
+        data_type: date
+        description: "The starting date of the week."
+      - name: week_end_date
+        data_type: date
+        description: "The ending date of the week."
+      - name: prior_year_week_start_date
+        data_type: date
+        description: "The starting date of the same week in the previous year."
+      - name: prior_year_week_end_date
+        data_type: date
+        description: "The ending date of the same week in the previous year."
+      - name: week_of_year
+        data_type: number
+        description: "The numeric representation of the week within the year."
+      - name: iso_week_start_date
+        data_type: date
+        description: "The starting date of the ISO week."
+      - name: iso_week_end_date
+        data_type: date
+        description: "The ending date of the ISO week."
+      - name: prior_year_iso_week_start_date
+        data_type: date
+        description: "The starting date of the same ISO week in the previous year."
+      - name: prior_year_iso_week_end_date
+        data_type: date
+        description: "The ending date of the same ISO week in the previous year."
+      - name: iso_week_of_year
+        data_type: number
+        description: "The numeric representation of the ISO week within the year."
+      - name: prior_year_week_of_year
+        data_type: number
+        description: "The numeric representation of the same week in the previous year."
+      - name: prior_year_iso_week_of_year
+        data_type: number
+        description: "The numeric representation of the same ISO week in the previous year."
+      - name: month_of_year
+        data_type: number
+        description: "The numeric representation of the month (1 for January, 12 for December)."
+      - name: month_name
+        data_type: varchar
+        description: "Full name of the month (e.g., January, February)."
+      - name: month_name_short
+        data_type: varchar
+        description: "Shortened name of the month (e.g., Jan, Feb)."
+      - name: month_start_date
+        data_type: date
+        description: "The starting date of the month."
+      - name: month_end_date
+        data_type: date
+        description: "The ending date of the month."
+      - name: prior_year_month_start_date
+        data_type: date
+        description: "The starting date of the same month in the previous year."
+      - name: prior_year_month_end_date
+        data_type: date
+        description: "The ending date of the same month in the previous year."
+      - name: quarter_of_year
+        data_type: number
+        description: "The numeric representation of the quarter (1 for Q1, 4 for Q4)."
+      - name: quarter_start_date
+        data_type: date
+        description: "The starting date of the quarter."
+      - name: quarter_end_date
+        data_type: date
+        description: "The ending date of the quarter."
+      - name: year_number
+        data_type: number
+        description: "The numeric representation of the year."
+      - name: year_start_date
+        data_type: date
+        description: "The starting date of the year."
+      - name: year_end_date
+        data_type: date
+        description: "The ending date of the year."
+
+  - name: dim_mechanics
+    description: "Dimension table providing details about mechanics, including their operational status."
+    columns:
+      - name: mechanic_id
+        data_type: varchar
+        description: "Unique identifier for each mechanic."
+        tests:
+          - not_null
+          - unique
+      - name: mechanic_name
+        data_type: varchar
+        description: "Name of the mechanic."
+        tests:
+          - not_null
+      - name: is_active
+        data_type: boolean
+        description: "Indicates whether the mechanic is currently active."
+      - name: last_updated_utc
+        data_type: timestamp_ntz
+        description: "Timestamp of the last update to the mechanic record."
+
+  - name: dim_promotions
+    description: "Dimension table containing information about dealership promotions, including discount details and associated campaigns."
+    columns:
+      - name: promotion_id
+        data_type: varchar
+        description: "Unique identifier for each promotion."
+        tests:
+          - not_null
+          - unique
+      - name: name
+        data_type: varchar
+        description: "Name of the promotion."
+        tests:
+          - not_null
+      - name: start_date
+        data_type: date
+        description: "The start date of the promotion."
+        tests:
+          - not_null
+      - name: end_date
+        data_type: date
+        description: "The end date of the promotion."
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: " > start_date"
+      - name: discount_type
+        data_type: varchar
+        description: "Type of discount offered (e.g., percentage, fixed amount)."
+      - name: discount_value
+        data_type: float
+        description: "The value of the discount offered."
+      - name: campaign_id
+        data_type: varchar
+        description: "Identifier for the associated campaign."
+      - name: is_active
+        data_type: boolean
+        description: "Indicates whether the promotion is currently active."
+      - name: last_updated_utc
+        data_type: timestamp_ntz
+        description: "Timestamp of the last update to the promotion record."
+
+  - name: dim_salesperson
+    description: "Dimension table containing details about salespeople, including their branch assignments and employment status."
+    columns:
+      - name: salesperson_id
+        data_type: varchar
+        description: "Unique identifier for each salesperson."
+        tests:
+          - not_null
+          - unique
+      - name: name
+        data_type: varchar
+        description: "Name of the salesperson."
+        tests:
+          - not_null
+      - name: hire_date
+        data_type: date
+        description: "Date when the salesperson was hired."
+      - name: branch_id
+        data_type: varchar
+        description: "Identifier for the branch where the salesperson is assigned."
+      - name: is_active
+        data_type: boolean
+        description: "Indicates whether the salesperson is currently active."
+      - name: last_updated_utc
+        data_type: timestamp_ntz
+        description: "Timestamp of the last update to the salesperson record."
+
+  - name: dim_service_types
+    description: "Dimension table providing information about types of services offered by the dealership."
+    columns:
+      - name: service_type_id
+        data_type: varchar
+        description: "Unique identifier for each type of service."
+        tests:
+          - not_null
+          - unique
+      - name: service_type_name
+        data_type: varchar
+        description: "Name of the service type (e.g., oil change, tire rotation)."
+        tests:
+          - not_null
+      - name: is_active
+        data_type: boolean
+        description: "Indicates whether the service type is currently active."
+      - name: last_updated_utc
+        data_type: timestamp_ntz
+        description: "Timestamp of the last update to the service type record."
+
+  - name: dim_vehicle
+    description: "Dimension table providing details about vehicles, including their specifications and inventory status."
+    columns:
+      - name: vehicle_id
+        data_type: varchar
+        description: "Unique identifier for each vehicle."
+        tests:
+          - not_null
+          - unique
+      - name: model
+        data_type: varchar
+        description: "Model name of the vehicle."
+      - name: brand_name
+        data_type: varchar
+        description: "Brand of the vehicle."
+      - name: type_name
+        data_type: varchar
+        description: "Type of the vehicle (e.g., SUV, sedan)."
+      - name: year
+        data_type: varchar
+        description: "Manufacture year of the vehicle."
+      - name: price_usd
+        data_type: varchar
+        description: "Price of the vehicle in USD."
+      - name: inventory_status
+        data_type: varchar
+        description: "Current inventory status of the vehicle (e.g., available, sold)."
+      - name: is_active
+        data_type: boolean
+        description: "Indicates whether the vehicle is currently active in the inventory."
+      - name: last_updated_utc
+        data_type: timestamp_ntz
+        description: "Timestamp of the last update to the vehicle record."
+
+  - name: fact_sales
+    description: "Fact table containing detailed sales data, including customer, vehicle, and promotion details."
+    columns:
+      - name: sale_id
+        data_type: varchar
+        description: "Unique identifier for each sale transaction."
+        tests:
+          - not_null
+          - unique
+      - name: sale_date
+        data_type: date
+        description: "Date on which the sale occurred."
+        tests:
+          - not_null
+      - name: customer_id
+        data_type: varchar
+        description: "Identifier for the customer associated with the sale."
+      - name: vehicle_id
+        data_type: varchar
+        description: "Identifier for the vehicle sold."
+      - name: branch_id
+        data_type: varchar
+        description: "Identifier for the branch where the sale took place."
+      - name: campaign_id
+        data_type: varchar
+        description: "Identifier for the marketing campaign associated with the sale."
+      - name: salesperson_id
+        data_type: varchar
+        description: "Identifier for the salesperson responsible for the sale."
+      - name: promotion_id
+        data_type: varchar
+        description: "Identifier for the promotion applied to the sale."
+      - name: final_price_usd
+        data_type: float
+        description: "Final price of the vehicle sold after applying discounts and promotions."
+      - name: base_price_usd
+        data_type: varchar
+        description: "Base price of the vehicle sold before any discounts or promotions."
+      - name: profit_margin
+        data_type: float
+        description: "Profit margin for the sale, calculated as the difference between the final price and base price."
+      - name: discount_value
+        data_type: float
+        description: "Total discount applied to the sale in USD."
+      - name: financing_type
+        data_type: varchar
+        description: "Type of financing used for the sale (e.g., cash, loan)."
+      - name: is_active
+        data_type: boolean
+        description: "Indicates whether the sale record is currently active."
+
+  - name: fact_services
+    description: "Fact table containing detailed data about services performed, including cost and vehicle information."
+    columns:
+      - name: service_id
+        data_type: varchar
+        description: "Unique identifier for each service transaction."
+        tests:
+          - not_null
+          - unique
+      - name: service_date
+        data_type: date
+        description: "Date on which the service was performed."
+        tests:
+          - not_null
+      - name: vehicle_id
+        data_type: varchar
+        description: "Identifier for the vehicle that received the service."
+      - name: service_type_id
+        data_type: varchar
+        description: "Identifier for the type of service performed."
+      - name: mechanic_id
+        data_type: varchar
+        description: "Identifier for the mechanic who performed the service."
+      - name: customer_id
+        data_type: varchar
+        description: "Identifier for the customer associated with the service."
+      - name: service_cost_usd
+        data_type: float
+        description: "Cost of the service performed in USD."

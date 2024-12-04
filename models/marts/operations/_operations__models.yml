@@ -1,0 +1,118 @@
+version: 2
+
+models:
+  - name: mechanic_performance
+    description: "Aggregated performance metrics for mechanics, including the total number of services performed and associated costs."
+    columns:
+      - name: mechanic_id
+        data_type: varchar
+        description: "Unique identifier for the mechanic."
+        tests:
+          - not_null
+          - unique
+      - name: mechanic_name
+        data_type: varchar
+        description: "Name of the mechanic."
+        tests:
+          - not_null
+      - name: total_services
+        data_type: number
+        description: "Total number of services performed by the mechanic."
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: " >= 0"
+      - name: total_service_cost
+        data_type: float
+        description: "Total cost of all services performed by the mechanic."
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: " >= 0"
+      - name: avg_service_cost
+        data_type: float
+        description: "Average cost per service performed by the mechanic."
+        tests:
+          - dbt_utils.expression_is_true:
+              expression: " >= 0"
+
+  - name: service_effiency
+    description: "Branch-level service efficiency metrics, including service counts and cost statistics by month."
+    columns:
+      - name: branch_id
+        data_type: varchar
+        description: "Unique identifier for the branch."
+        tests:
+          - not_null
+      - name: service_month
+        data_type: date
+        description: "Month in which the services were performed."
+        tests:
+          - not_null
+      - name: total_services
+        data_type: number
+        description: "Total number of services performed at the branch during the specified month."
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: " >= 0"
+      - name: total_service_cost
+        data_type: float
+        description: "Total cost of all services performed at the branch during the specified month."
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: " >= 0"
+      - name: avg_service_cost
+        data_type: float
+        description: "Average cost of services performed at the branch during the specified month."
+        tests:
+          - dbt_utils.expression_is_true:
+              expression: " >= 0"
+      - name: max_service_cost
+        data_type: float
+        description: "Maximum cost of a single service performed at the branch during the specified month."
+        tests:
+          - dbt_utils.expression_is_true:
+              expression: " >= 0"
+      - name: min_service_cost
+        data_type: float
+        description: "Minimum cost of a single service performed at the branch during the specified month."
+        tests:
+          - dbt_utils.expression_is_true:
+              expression: " >= 0"
+
+  - name: service_type_analysis
+    description: "Analysis of service types, detailing the total number of services and associated costs by type."
+    columns:
+      - name: service_type_id
+        data_type: varchar
+        description: "Unique identifier for the service type."
+        tests:
+          - not_null
+          - unique
+      - name: service_type_name
+        data_type: varchar
+        description: "Name of the service type (e.g., oil change, tire rotation)."
+        tests:
+          - not_null
+      - name: total_services
+        data_type: number
+        description: "Total number of services of this type performed."
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: " >= 0"
+      - name: total_service_cost
+        data_type: float
+        description: "Total cost of services of this type."
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: " >= 0"
+      - name: avg_service_cost
+        data_type: float
+        description: "Average cost per service of this type."
+        tests:
+          - dbt_utils.expression_is_true:
+              expression: " >= 0"
