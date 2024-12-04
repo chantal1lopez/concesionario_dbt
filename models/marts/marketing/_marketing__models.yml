@@ -108,3 +108,84 @@ models:
         tests:
           - dbt_utils.expression_is_true:
               expression: " >= -campaign_budget"
+
+  - name: dim_campaigns
+    description: "Dimension table containing details about marketing campaigns, including their budgets and channels."
+    columns:
+      - name: campaign_id
+        data_type: varchar
+        description: "Unique identifier for each campaign."
+        tests:
+          - not_null
+          - unique
+      - name: name
+        data_type: varchar
+        description: "Name of the marketing campaign."
+        tests:
+          - not_null
+      - name: start_date
+        data_type: date
+        description: "The start date of the campaign."
+        tests:
+          - not_null
+      - name: end_date
+        data_type: date
+        description: "The end date of the campaign."
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: " > start_date"
+      - name: budget_usd
+        data_type: float
+        description: "The budget allocated for the campaign, in USD."
+      - name: channel
+        data_type: varchar
+        description: "The primary channel used for the campaign (e.g., online, TV, print)."
+      - name: is_active
+        data_type: boolean
+        description: "Indicates whether the campaign is currently active."
+      - name: last_updated_utc
+        data_type: timestamp_ntz
+        description: "Timestamp of the last update to the campaign record."
+        
+  - name: dim_promotions
+    description: "Dimension table containing information about dealership promotions, including discount details and associated campaigns."
+    columns:
+      - name: promotion_id
+        data_type: varchar
+        description: "Unique identifier for each promotion."
+        tests:
+          - not_null
+          - unique
+      - name: name
+        data_type: varchar
+        description: "Name of the promotion."
+        tests:
+          - not_null
+      - name: start_date
+        data_type: date
+        description: "The start date of the promotion."
+        tests:
+          - not_null
+      - name: end_date
+        data_type: date
+        description: "The end date of the promotion."
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: " > start_date"
+      - name: discount_type
+        data_type: varchar
+        description: "Type of discount offered (e.g., percentage, fixed amount)."
+      - name: discount_value
+        data_type: float
+        description: "The value of the discount offered."
+      - name: campaign_id
+        data_type: varchar
+        description: "Identifier for the associated campaign."
+      - name: is_active
+        data_type: boolean
+        description: "Indicates whether the promotion is currently active."
+      - name: last_updated_utc
+        data_type: timestamp_ntz
+        description: "Timestamp of the last update to the promotion record."

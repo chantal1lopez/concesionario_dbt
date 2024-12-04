@@ -116,3 +116,75 @@ models:
         tests:
           - dbt_utils.expression_is_true:
               expression: " >= 0"
+
+  - name: dim_mechanics
+    description: "Dimension table providing details about mechanics, including their operational status."
+    columns:
+      - name: mechanic_id
+        data_type: varchar
+        description: "Unique identifier for each mechanic."
+        tests:
+          - not_null
+          - unique
+      - name: mechanic_name
+        data_type: varchar
+        description: "Name of the mechanic."
+        tests:
+          - not_null
+      - name: is_active
+        data_type: boolean
+        description: "Indicates whether the mechanic is currently active."
+      - name: last_updated_utc
+        data_type: timestamp_ntz
+        description: "Timestamp of the last update to the mechanic record."
+
+  - name: dim_service_types
+    description: "Dimension table providing information about types of services offered by the dealership."
+    columns:
+      - name: service_type_id
+        data_type: varchar
+        description: "Unique identifier for each type of service."
+        tests:
+          - not_null
+          - unique
+      - name: service_type_name
+        data_type: varchar
+        description: "Name of the service type (e.g., oil change, tire rotation)."
+        tests:
+          - not_null
+      - name: is_active
+        data_type: boolean
+        description: "Indicates whether the service type is currently active."
+      - name: last_updated_utc
+        data_type: timestamp_ntz
+        description: "Timestamp of the last update to the service type record."
+
+  - name: fact_services
+    description: "Fact table containing detailed data about services performed, including cost and vehicle information."
+    columns:
+      - name: service_id
+        data_type: varchar
+        description: "Unique identifier for each service transaction."
+        tests:
+          - not_null
+          - unique
+      - name: service_date
+        data_type: date
+        description: "Date on which the service was performed."
+        tests:
+          - not_null
+      - name: vehicle_id
+        data_type: varchar
+        description: "Identifier for the vehicle that received the service."
+      - name: service_type_id
+        data_type: varchar
+        description: "Identifier for the type of service performed."
+      - name: mechanic_id
+        data_type: varchar
+        description: "Identifier for the mechanic who performed the service."
+      - name: customer_id
+        data_type: varchar
+        description: "Identifier for the customer associated with the service."
+      - name: service_cost_usd
+        data_type: float
+        description: "Cost of the service performed in USD."

@@ -33,47 +33,6 @@ models:
         data_type: timestamp_ntz
         description: "Timestamp of the last update to the branch record."
 
-  - name: dim_campaigns
-    description: "Dimension table containing details about marketing campaigns, including their budgets and channels."
-    columns:
-      - name: campaign_id
-        data_type: varchar
-        description: "Unique identifier for each campaign."
-        tests:
-          - not_null
-          - unique
-      - name: name
-        data_type: varchar
-        description: "Name of the marketing campaign."
-        tests:
-          - not_null
-      - name: start_date
-        data_type: date
-        description: "The start date of the campaign."
-        tests:
-          - not_null
-      - name: end_date
-        data_type: date
-        description: "The end date of the campaign."
-        tests:
-          - not_null
-          - dbt_utils.expression_is_true:
-              expression: " > start_date"
-      - name: budget_usd
-        data_type: float
-        description: "The budget allocated for the campaign, in USD."
-      - name: channel
-        data_type: varchar
-        description: "The primary channel used for the campaign (e.g., online, TV, print)."
-      - name: is_active
-        data_type: boolean
-        description: "Indicates whether the campaign is currently active."
-      - name: last_updated_utc
-        data_type: timestamp_ntz
-        description: "Timestamp of the last update to the campaign record."
-
-
-
   - name: dim_customers
     description: "Dimension table containing information about customers, including their contact details and segmentation."
     columns:
@@ -224,69 +183,6 @@ models:
         data_type: date
         description: "The ending date of the year."
 
-  - name: dim_mechanics
-    description: "Dimension table providing details about mechanics, including their operational status."
-    columns:
-      - name: mechanic_id
-        data_type: varchar
-        description: "Unique identifier for each mechanic."
-        tests:
-          - not_null
-          - unique
-      - name: mechanic_name
-        data_type: varchar
-        description: "Name of the mechanic."
-        tests:
-          - not_null
-      - name: is_active
-        data_type: boolean
-        description: "Indicates whether the mechanic is currently active."
-      - name: last_updated_utc
-        data_type: timestamp_ntz
-        description: "Timestamp of the last update to the mechanic record."
-
-  - name: dim_promotions
-    description: "Dimension table containing information about dealership promotions, including discount details and associated campaigns."
-    columns:
-      - name: promotion_id
-        data_type: varchar
-        description: "Unique identifier for each promotion."
-        tests:
-          - not_null
-          - unique
-      - name: name
-        data_type: varchar
-        description: "Name of the promotion."
-        tests:
-          - not_null
-      - name: start_date
-        data_type: date
-        description: "The start date of the promotion."
-        tests:
-          - not_null
-      - name: end_date
-        data_type: date
-        description: "The end date of the promotion."
-        tests:
-          - not_null
-          - dbt_utils.expression_is_true:
-              expression: " > start_date"
-      - name: discount_type
-        data_type: varchar
-        description: "Type of discount offered (e.g., percentage, fixed amount)."
-      - name: discount_value
-        data_type: float
-        description: "The value of the discount offered."
-      - name: campaign_id
-        data_type: varchar
-        description: "Identifier for the associated campaign."
-      - name: is_active
-        data_type: boolean
-        description: "Indicates whether the promotion is currently active."
-      - name: last_updated_utc
-        data_type: timestamp_ntz
-        description: "Timestamp of the last update to the promotion record."
-
   - name: dim_salesperson
     description: "Dimension table containing details about salespeople, including their branch assignments and employment status."
     columns:
@@ -313,27 +209,6 @@ models:
       - name: last_updated_utc
         data_type: timestamp_ntz
         description: "Timestamp of the last update to the salesperson record."
-
-  - name: dim_service_types
-    description: "Dimension table providing information about types of services offered by the dealership."
-    columns:
-      - name: service_type_id
-        data_type: varchar
-        description: "Unique identifier for each type of service."
-        tests:
-          - not_null
-          - unique
-      - name: service_type_name
-        data_type: varchar
-        description: "Name of the service type (e.g., oil change, tire rotation)."
-        tests:
-          - not_null
-      - name: is_active
-        data_type: boolean
-        description: "Indicates whether the service type is currently active."
-      - name: last_updated_utc
-        data_type: timestamp_ntz
-        description: "Timestamp of the last update to the service type record."
 
   - name: dim_vehicle
     description: "Dimension table providing details about vehicles, including their specifications and inventory status."
@@ -419,33 +294,3 @@ models:
       - name: is_active
         data_type: boolean
         description: "Indicates whether the sale record is currently active."
-
-  - name: fact_services
-    description: "Fact table containing detailed data about services performed, including cost and vehicle information."
-    columns:
-      - name: service_id
-        data_type: varchar
-        description: "Unique identifier for each service transaction."
-        tests:
-          - not_null
-          - unique
-      - name: service_date
-        data_type: date
-        description: "Date on which the service was performed."
-        tests:
-          - not_null
-      - name: vehicle_id
-        data_type: varchar
-        description: "Identifier for the vehicle that received the service."
-      - name: service_type_id
-        data_type: varchar
-        description: "Identifier for the type of service performed."
-      - name: mechanic_id
-        data_type: varchar
-        description: "Identifier for the mechanic who performed the service."
-      - name: customer_id
-        data_type: varchar
-        description: "Identifier for the customer associated with the service."
-      - name: service_cost_usd
-        data_type: float
-        description: "Cost of the service performed in USD."
