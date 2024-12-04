@@ -128,7 +128,7 @@ sources:
             description: "Campaign associated with the promotion."
             tests:
               - relationships:
-                  to: ref('campaigns')
+                  to: source('concesionario','campaigns')
                   field: campaign_id
           - name: is_active
             data_type: boolean
@@ -151,7 +151,7 @@ sources:
             description: "Identifier for the customer associated with the sale."
             tests:
               - relationships:
-                  to: ref('customers')
+                  to: source('concesionario','customers')
                   field: customer_id
           - name: vehicle_id
             data_type: varchar
@@ -170,28 +170,28 @@ sources:
             description: "Identifier for the salesperson responsible for the sale."
             tests:
               - relationships:
-                  to: ref('salespeople')
+                  to: source('concesionario','salespeople')
                   field: salesperson_id
           - name: branch_id
             data_type: varchar
             description: "Branch where the sale occurred."
             tests:
               - relationships:
-                  to: ref('branches')
+                  to: source('concesionario','branches')
                   field: branch_id
           - name: campaign_id
             data_type: varchar
             description: "Campaign associated with the sale."
             tests:
               - relationships:
-                  to: ref('campaigns')
+                  to: source('concesionario','campaigns')
                   field: campaign_id
           - name: promotion_id
             data_type: varchar
             description: "Promotion applied to the sale."
             tests:
               - relationships:
-                  to: ref('promotions')
+                  to: source('concesionario','promotions')
                   field: promotion_id
           - name: is_active
             data_type: boolean
@@ -239,7 +239,7 @@ sources:
           tests:
               - not_null
               - relationships:
-                  to: ref('vehicles')
+                  to: source('concesionario','vehicles')
                   field: vehicle_id
 
         - name: service_date
