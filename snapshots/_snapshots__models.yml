@@ -1,6 +1,6 @@
 version: 2
 
-models:
+snapshots:
   - name: campaigns_snapshot
     description: "A snapshot table capturing the historical changes in marketing campaigns, including budget, status, and other attributes over time."
     columns:
